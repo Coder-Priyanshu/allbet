@@ -870,7 +870,7 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="20" height="20" style="margin-right: 8px;">
                 Live Casino
             </a>
-            <a href="#" id="slot-btn" onclick="showSlotSection(); return false;">
+            <a href="slot.html" id="slot-btn" onclick="setActiveNavButton('slot-btn'); window.location.href='slot.html'; return false;">
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
                 Slot
             </a>
@@ -1306,6 +1306,10 @@
                         <button class="sport-button">
                             <img src="https://cdn-icons-png.flaticon.com/512/2454/2454567.png" alt="Table Tennis">
                             Table Tennis
+                        </button>
+                        <button class="sport-button" onclick="activateSportButton(this); setTimeout(function() { window.location.href='slot.html'; }, 300);">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" alt="Slots">
+                            Slots
                         </button>
                     </div>
                     <button class="nav-arrow next" onclick="scrollSports('right')">❯</button>
@@ -3130,11 +3134,8 @@
         function showSlotSection() {
             setActiveNavButton('slot-btn');
 
-            // Hide all other content
-            showExchangeSection();
-
-            // Show slot content
-            alert("Slot section is under development");
+            // Redirect to slot.html
+            window.location.href = 'slot.html';
         }
 
         // ----- Show Fantasy Games Section -----
@@ -3322,6 +3323,17 @@
                 category.style.display = 'block';
             });
         });
+
+        // ----- Activate Sport Button Function -----
+        function activateSportButton(button) {
+            // Remove active class from all sport buttons
+            document.querySelectorAll('.sport-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Add active class to the clicked button
+            button.classList.add('active');
+        }
 
         // ----- Document Ready Handler -----
         document.addEventListener('DOMContentLoaded', function() {

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Games - AllBet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1f2c;
+            --secondary-color: #242a38;
+            --accent-color: #ff3e3e;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ----- Navbar Styles ----- */
+        .navbar {
+            background-color: var(--secondary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ddd;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a:hover {
+            background-color: #3a4257;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background-color: #ff3e3e;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* ----- Right Section Styles ----- */
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-right: 10px;
+        }
+        
+        .search-box {
+            background-color: #2d3446;
+            border: 1px solid #3a4257;
+            color: white;
+            padding: 8px 15px;
+            padding-right: 35px;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            border-color: #4a5267;
+            box-shadow: 0 0 0 2px rgba(74, 82, 103, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+        
+        .login-btn, .demo-btn {
+            background-color: #2d3446;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-btn {
+            background-color: var(--accent-color);
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.3);
+        }
+        
+        .login-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 62, 62, 0.4);
+        }
+        
+        .demo-btn:hover {
+            background-color: #3a4257;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ----- Notification Bar Styles ----- */
+        .notification-bar {
+            background-color: #2d3446;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-icon {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0.8);
+        }
+
+        .notification-text {
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        /* ----- Fantasy Games Content Styles ----- */
+        .fantasy-content {
+            padding: 30px;
+        }
+
+        .fantasy-header {
+            margin-bottom: 30px;
+        }
+
+        .fantasy-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .fantasy-header p {
+            color: #ddd;
+            font-size: 16px;
+        }
+
+        .fantasy-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .fantasy-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fantasy-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .fantasy-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* ----- Footer Navigation Styles ----- */
+        .footer-navigation {
+            background-color: var(--secondary-color);
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid #3a4257;
+        }
+        
+        .quick-nav h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #ddd;
+            background-color: #2d3446;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            width: 120px;
+            text-align: center;
+        }
+        
+        .nav-button img {
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-button span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .nav-button:hover {
+            background-color: #3a4257;
+            transform: translateY(-5px);
+            color: white;
+        }
+        
+        .nav-button:hover img {
+            transform: scale(1.1);
+        }
+        
+        .nav-button.active {
+            background-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar">
+        <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+
+        <div class="nav-links">
+            <a href="exchange.html" id="exchange-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="20" height="20" style="margin-right: 8px;">
+                Exchange
+            </a>
+            <a href="livecasino.html" id="live-casino-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="20" height="20" style="margin-right: 8px;">
+                Live Casino
+            </a>
+            <a href="slot.html" id="slot-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
+                Slot
+            </a>
+            <a href="fantasy.html" id="fantasy-games-btn" class="active">
+                <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="20" height="20" style="margin-right: 8px;">
+                Fantasy Games
+            </a>
+        </div>
+
+        <div class="right-section">
+            <div class="search-container">
+                <input type="search" placeholder="Search" class="search-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" alt="Search" class="search-icon">
+            </div>
+            <button class="btn login-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Login" width="16" height="16" style="margin-right: 5px;">
+                Login
+            </button>
+            <button class="btn demo-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1251/1251840.png" alt="Demo" width="16" height="16" style="margin-right: 5px;">
+                Demo
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== NOTIFICATION BAR ==================== -->
+    <div class="notification-bar">
+        <img src="https://cdn-icons-png.flaticon.com/512/3/3745.png" alt="speaker" class="notification-icon">
+        <div class="notification-text">
+            Welcome to new version of TENEXCH, Enjoy more services...
+        </div>
+    </div>
+
+    <!-- ==================== FANTASY GAMES CONTENT ==================== -->
+    <div class="container">
+        <div class="fantasy-content">
+            <div class="fantasy-header">
+                <h1>Fantasy Games</h1>
+                <p>Create your dream team and compete for big prizes</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="fantasy-card">
+                        <img src="https://www.slotstemple.com/wp-content/uploads/2021/02/Cricket-Fantasy-League.png" alt="Cricket Fantasy League">
+                        <h3>Cricket Fantasy League</h3>
+                        <p>Build your dream cricket team with players from around the world and compete for massive prizes.</p>
+                        <button class="btn login-btn w-100 mt-3">Play Now</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fantasy-card">
+                        <img src="https://www.slotstemple.com/wp-content/uploads/2021/02/Football-Fantasy-League.png" alt="Football Fantasy League">
+                        <h3>Football Fantasy League</h3>
+                        <p>Create your ultimate football squad and earn points based on your players' real-life performances.</p>
+                        <button class="btn login-btn w-100 mt-3">Play Now</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fantasy-card">
+                        <img src="https://www.slotstemple.com/wp-content/uploads/2021/02/Basketball-Fantasy-League.png" alt="Basketball Fantasy League">
+                        <h3>Basketball Fantasy League</h3>
+                        <p>Draft your perfect basketball team and compete against friends in daily and weekly contests.</p>
+                        <button class="btn login-btn w-100 mt-3">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER NAVIGATION ==================== -->
+    <div class="footer-navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="quick-nav">
+                        <h5>Quick Navigation</h5>
+                        <div class="nav-buttons">
+                            <a href="exchange.html" class="nav-button">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="24" height="24">
+                                <span>Exchange</span>
+                            </a>
+                            <a href="livecasino.html" class="nav-button">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="24" height="24">
+                                <span>Live Casino</span>
+                            </a>
+                            <a href="slot.html" class="nav-button">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="24" height="24">
+                                <span>Slot</span>
+                            </a>
+                            <a href="fantasy.html" class="nav-button active">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="24" height="24">
+                                <span>Fantasy Games</span>
+                            </a>
+                            <a href="index.html" class="nav-button">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png" width="24" height="24">
+                                <span>Home</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -862,7 +862,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
 
         <div class="nav-links">
-            <a href="#" id="exchange-btn" class="active" onclick="showExchangeSection(); return false;">
+            <a href="exchange.html" id="exchange-btn" class="active">
                 <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="20" height="20" style="margin-right: 8px;">
                 Exchange
             </a>
@@ -874,7 +874,7 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
                 Slot
             </a>
-            <a href="#" id="fantasy-games-btn" onclick="showFantasyGamesSection(); return false;">
+            <a href="fantasy.html" id="fantasy-games-btn" onclick="setActiveNavButton('fantasy-games-btn'); window.location.href='fantasy.html'; return false;">
                 <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="20" height="20" style="margin-right: 8px;">
                 Fantasy Games
             </a>
@@ -3142,11 +3142,8 @@
         function showFantasyGamesSection() {
             setActiveNavButton('fantasy-games-btn');
 
-            // Hide all other content
-            showExchangeSection();
-
-            // Show fantasy games content
-            alert("Fantasy Games section is under development");
+            // Redirect to fantasy.html
+            window.location.href = 'fantasy.html';
         }
 
         // ----- Live Casino Content Functions -----

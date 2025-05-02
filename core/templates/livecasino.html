@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ==================== META TAGS AND TITLE ==================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllBet - Live Casino</title>
+
+    <!-- ==================== CSS IMPORTS ==================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ==================== CUSTOM STYLES ==================== -->
+    <style>
+        /* ----- Base Variables ----- */
+        :root {
+            --primary-color: #1a1f2c;
+            --secondary-color: #2d3446;
+            --accent-color: #ff3e3e;
+        }
+
+        /* ----- Global Styles ----- */
+        body {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* ----- Navbar Styles ----- */
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            background-color: #2d3446;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-links a:hover {
+            background-color: #3a4257;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .nav-links a.active {
+            background-color: #ff3e3e;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Live Casino Announcement Styles */
+        .live-casino-announcement {
+            margin-bottom: 20px;
+        }
+
+        .announcement-banner {
+            background: linear-gradient(135deg, #1a1f2c, #2d3446);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .announcement-header h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ff3e3e;
+            text-align: center;
+        }
+
+        .announcement-content p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .announcement-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            background-color: #ff3e3e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Casino Navigation Bar Styles */
+        .casino-navbar {
+            display: flex;
+            background-color: #e9ecef;
+            padding: 8px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+            width: 100%;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .casino-navbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
+        }
+
+        .casino-navbar-container {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .casino-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: #333;
+            min-width: 60px;
+            position: relative;
+        }
+
+        .casino-nav-item:hover {
+            background-color: #d1d1d1;
+        }
+
+        .casino-nav-item.active {
+            background-color: #d1d1d1;
+        }
+
+        .casino-nav-item img {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+            object-fit: contain;
+        }
+
+        .casino-nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .search-button {
+            background-color: #555;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .search-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .login-btn {
+            background-color: #ff3e3e;
+            border: none;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #e63636;
+        }
+
+        .demo-btn {
+            background-color: #2d3446;
+            border: none;
+            color: white;
+        }
+
+        .demo-btn:hover {
+            background-color: #3a4257;
+        }
+
+        .notification-bar {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            height: 60px;
+        }
+
+        .notification-icon {
+            height: 30px;
+            width: 30px;
+            margin-right: 15px;
+            margin-left: 10px;
+            z-index: 2;
+        }
+
+        .notification-text {
+            display: inline-block;
+            animation: scrollText 20s linear infinite;
+            padding-left: 100%;
+            white-space: nowrap;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* ----- Sidebar Styles ----- */
+        .sidebar {
+            background-color: var(--secondary-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Casino Providers Grid */
+        .casino-providers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .provider-card {
+            background-color: #e9ecef;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .provider-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .provider-card img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .provider-card span {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Casino Games Grid Styles */
+        .casino-games-container {
+            margin-top: 20px;
+        }
+
+        .casino-games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .casino-game-card {
+            background-color: #1a1f2c;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .casino-game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .casino-game-image {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .casino-game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .casino-game-card:hover .casino-game-image img {
+            transform: scale(1.1);
+        }
+
+        .casino-game-title {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar">
+        <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+
+        <div class="nav-links">
+            <a href="homepage.html" id="exchange-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="20" height="20" style="margin-right: 8px;">
+                Exchange
+            </a>
+            <a href="livecasino.html" id="live-casino-btn" class="active">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="20" height="20" style="margin-right: 8px;">
+                Live Casino
+            </a>
+            <a href="slot.html" id="slot-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
+                Slot
+            </a>
+            <a href="#" id="fantasy-games-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="20" height="20" style="margin-right: 8px;">
+                Fantasy Games
+            </a>
+        </div>
+
+        <div class="right-section">
+            <input type="search" placeholder="Search" class="search-box">
+            <button class="btn login-btn">Login</button>
+            <button class="btn demo-btn">Demo</button>
+        </div>
+    </nav>
+
+    <!-- ==================== NOTIFICATION BAR ==================== -->
+    <div class="notification-bar">
+        <img src="https://cdn-icons-png.flaticon.com/512/3/3745.png" alt="speaker" class="notification-icon">
+        <div class="notification-text">
+            Welcome to new version of TENEXCH, Enjoy more services...
+        </div>
+    </div>
+
+    <!-- ==================== CASINO NAVBAR ==================== -->
+    <div class="casino-navbar-container">
+        <div class="casino-navbar">
+            <a href="#" class="casino-nav-item active">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" alt="All Casino">
+                <span>All Casino</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906188.png" alt="Roulette">
+                <span>Roulette</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906190.png" alt="Teenpatti">
+                <span>Teenpatti</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906187.png" alt="Poker">
+                <span>Poker</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906186.png" alt="Baccarat">
+                <span>Baccarat</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906189.png" alt="Dragon Tiger">
+                <span>Dragon Tiger</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906191.png" alt="32 Cards">
+                <span>32 Cards</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906185.png" alt="Andar Bahar">
+                <span>Andar Bahar</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906184.png" alt="Lucky 7">
+                <span>Lucky 7</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906183.png" alt="3 Card Judgement">
+                <span>3 Card Judgement</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906182.png" alt="Casino War">
+                <span>Casino War</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906181.png" alt="Worli">
+                <span>Worli</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906180.png" alt="Sports">
+                <span>Sports</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906179.png" alt="Bollywood">
+                <span>Bollywood</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906178.png" alt="Lottery">
+                <span>Lottery</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906177.png" alt="Queen">
+                <span>Queen</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906176.png" alt="Race">
+                <span>Race</span>
+            </a>
+            <a href="#" class="casino-nav-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906175.png" alt="Others">
+                <span>Others</span>
+            </a>
+            <button class="search-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" alt="Search">
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Add active class to the clicked item
+        document.querySelectorAll('.casino-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.casino-nav-item').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- ========== SIDEBAR ========== -->
+            <div class="col-md-2 p-0">
+                <div class="sidebar">
+                    <!-- ----- Search Box ----- -->
+                    <div class="mb-4">
+                        <input type="text" placeholder="Search games..." class="form-control">
+                    </div>
+
+                    <!-- ----- Casino Providers Grid ----- -->
+                    <div class="casino-providers-grid">
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" alt="Our Casino">
+                            <span>OUR CASINO</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906190.png" alt="Our Virtual">
+                            <span>OUR VIRTUAL</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906188.png" alt="Tembo">
+                            <span>TEMBO</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906186.png" alt="Creedroomz">
+                            <span>CREEDROOMZ</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906184.png" alt="Vivo Gaming">
+                            <span>VIVO GAMING</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906182.png" alt="Evolution">
+                            <span>EVOLUTION</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906180.png" alt="Ezugi">
+                            <span>EZUGI</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906178.png" alt="Cockfight">
+                            <span>COCKFIGHT</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906176.png" alt="Winfinity">
+                            <span>WINFINITY</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906174.png" alt="Jacktop">
+                            <span>JACKTOP</span>
+                        </div>
+                        <div class="provider-card">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906172.png" alt="Gemini">
+                            <span>GEMINI</span>
+                        </div>
+                    </div>
+
+                    <!-- ----- Popular Games ----- -->
+                    <div class="mt-4">
+                        <h5 class="mb-3">Popular Games</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Teen Patti</a></li>
+                            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Andar Bahar</a></li>
+                            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Roulette</a></li>
+                            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Baccarat</a></li>
+                            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Blackjack</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== MAIN CONTENT AREA ========== -->
+            <div class="col-md-10 p-4">
+                <!-- ----- Live Casino Announcement Section ----- -->
+                <div class="live-casino-announcement" id="live-casino-announcement">
+                    <div class="announcement-banner">
+                        <div class="announcement-header">
+                            <h2>Welcome to Live Casino</h2>
+                        </div>
+                        <div class="announcement-content">
+                            <p>Experience the thrill of real-time gaming with professional dealers</p>
+                            <div class="announcement-badges">
+                                <span class="badge">Live Dealers</span>
+                                <span class="badge">24/7 Support</span>
+                                <span class="badge">Secure Gaming</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ----- Live Casino Games Container ----- -->
+                <div id="live-casino-display-content" class="live-casino-content">
+                    <div class="casino-games-container">
+                        <div class="casino-games-grid">
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1606167668584-78701c57f13d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Teen Patti">
+                                </div>
+                                <div class="casino-game-title">Teen Patti</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1601370552761-d129028bd833?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Roulette">
+                                </div>
+                                <div class="casino-game-title">Roulette</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Poker">
+                                </div>
+                                <div class="casino-game-title">Poker</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Baccarat">
+                                </div>
+                                <div class="casino-game-title">Baccarat</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Dragon Tiger">
+                                </div>
+                                <div class="casino-game-title">Dragon Tiger</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1516041384973-da0851160302?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="32 Cards">
+                                </div>
+                                <div class="casino-game-title">32 Cards</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1607872155422-478cce6d820b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Andar Bahar">
+                                </div>
+                                <div class="casino-game-title">Andar Bahar</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Lucky 7">
+                                </div>
+                                <div class="casino-game-title">Lucky 7</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="3 Card Judgement">
+                                </div>
+                                <div class="casino-game-title">3 Card Judgement</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1613160717888-fae3451a0a82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Casino War">
+                                </div>
+                                <div class="casino-game-title">Casino War</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1518133683791-0b9de5a055f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Worli">
+                                </div>
+                                <div class="casino-game-title">Worli</div>
+                            </div>
+                            <div class="casino-game-card">
+                                <div class="casino-game-image">
+                                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Sports">
+                                </div>
+                                <div class="casino-game-title">Sports</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

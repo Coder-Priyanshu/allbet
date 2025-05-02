@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TenExch</title>
+    <style>
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #ffc107;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .demo-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .notification-bar {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-bar img {
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="/static/images/logo.png" alt="TenExch" class="logo">
+        
+        <div class="nav-links">
+            <a href="/exchange">Exchange</a>
+            <a href="/live-casino">Live Casino</a>
+            <a href="/slot">Slot</a>
+            <a href="/fantasy-games">Fantasy Games</a>
+        </div>
+
+        <div class="right-section">
+            <input type="search" placeholder="Search" class="search-box">
+            <button class="btn login-btn">Login</button>
+            <button class="btn demo-btn">Demo</button>
+        </div>
+    </nav>
+    <div class="notification-bar">
+        <img src="/static/images/speaker.png" alt="notification">
+        <span>New version of TENEXCH, Enjoy more services...</span>
+    </div>
+</body>
+</html>

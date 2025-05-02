@@ -1,0 +1,3385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ==================== META TAGS AND TITLE ==================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllBet - Sports Betting</title>
+
+    <!-- ==================== CSS IMPORTS ==================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ==================== CUSTOM STYLES ==================== -->
+    <style>
+        /* ----- Base Variables ----- */
+        :root {
+            --primary-color: #1a1f2c;
+            --secondary-color: #2d3446;
+            --accent-color: #ff3e3e;
+        }
+
+        /* ----- Global Styles ----- */
+        body {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* ----- Navbar Styles ----- */
+        .navbar {
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            background-color: #2d3446;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-links a:hover {
+            background-color: #3a4257;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .nav-links a.active {
+            background-color: #ff3e3e;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Casino Navigation Bar Styles */
+        .casino-nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            background-color: #2d2d2d;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .casino-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a1f2c;
+            border-radius: 5px;
+            padding: 10px;
+            min-width: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .casino-nav-item:hover {
+            background-color: #3a4257;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .casino-nav-item.active {
+            background-color: #ff3e3e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.4);
+        }
+
+        .casino-nav-item img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .casino-nav-item span {
+            font-size: 12px;
+            text-align: center;
+            color: white;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .login-btn {
+            background-color: #ff3e3e;
+            border: none;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #e63636;
+        }
+
+        .demo-btn {
+            background-color: #2d3446;
+            border: none;
+            color: white;
+        }
+
+        .demo-btn:hover {
+            background-color: #3a4257;
+        }
+
+        .notification-bar {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            height: 60px;
+        }
+
+        .notification-icon {
+            height: 30px;
+            width: 30px;
+            margin-right: 15px;
+            margin-left: 10px;
+            z-index: 2;
+        }
+
+        .notification-text {
+            display: inline-block;
+            animation: scrollText 20s linear infinite;
+            padding-left: 100%;
+            white-space: nowrap;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* ----- Sidebar Styles ----- */
+        .sidebar {
+            background-color: var(--secondary-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .sports-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sports-menu li {
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .sports-menu li:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        /* Dropdown styles */
+        .sidebar-dropdown {
+            margin-bottom: 20px;
+        }
+
+        .dropdown-header {
+            background-color: #000;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .dropdown-header:hover {
+            background-color: #333;
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s;
+        }
+
+        .dropdown-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            padding-left: 0;
+            margin-top: 0;
+            overflow: hidden;
+        }
+
+        .plus-icon {
+            margin-right: 8px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .match-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-banner {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1577223625816-7546f13df25d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .time-badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin: 10px 0;
+        }
+
+        .team-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vs-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 50%;
+            margin: 20px 0;
+        }
+
+        .league-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+
+        /* ----- Sports Navigation Styles ----- */
+        .sports-nav-container {
+            position: relative;
+            background: #2d3446;
+            padding: 15px 40px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .sports-nav {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            position: relative;
+        }
+
+        .sports-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sport-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .sport-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .sport-button img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-arrow.prev {
+            left: 0;
+        }
+
+        .nav-arrow.next {
+            right: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Add animation delay for each button */
+        .sport-button:nth-child(1) { animation-delay: 0.1s; }
+        .sport-button:nth-child(2) { animation-delay: 0.2s; }
+        .sport-button:nth-child(3) { animation-delay: 0.3s; }
+        .sport-button:nth-child(4) { animation-delay: 0.4s; }
+        .sport-button:nth-child(5) { animation-delay: 0.5s; }
+        .sport-button:nth-child(6) { animation-delay: 0.6s; }
+        .sport-button:nth-child(7) { animation-delay: 0.7s; }
+        .sport-button:nth-child(8) { animation-delay: 0.8s; }
+
+        .active {
+            background: var(--accent-color);
+        }
+
+        /* ----- Live Betting Section Styles ----- */
+        .live-betting-section {
+            background: var(--primary-color);
+            margin-top: 30px;
+            display: none;
+        }
+
+        .sport-category {
+            margin-bottom: 20px;
+        }
+
+        /* ----- Sport Category Header Styles ----- */
+        .sport-header {
+            background: #000;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .market-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* ----- Match Row Styles ----- */
+        .match-row {
+            display: grid;
+            grid-template-columns: 3fr repeat(6, 1fr);
+            padding: 8px 15px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+        }
+
+        .match-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        /* ----- Live Indicator Styles ----- */
+        .live-indicator {
+            color: #0f0;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .live-indicator::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #0f0;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        .league-name {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .team-names {
+            color: white;
+            font-size: 13px;
+        }
+
+        /* ----- Odds Box Styles ----- */
+        .odds-box {
+            background: #1a6eb5;
+            color: white;
+            padding: 6px 10px;
+            text-align: center;
+            border-radius: 3px;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+
+        .odds-box.disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .market-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #888;
+        }
+
+        .market-indicator img {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Move sports navigation to bottom */
+        .sports-nav-container {
+            margin-top: 30px;
+        }
+
+        /* ----- Login Modal Styles ----- */
+        .login-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            overflow: auto;
+        }
+
+        .login-modal .login-container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            padding: 0;
+            margin: 5% auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: #2c5282;
+            padding: 25px 35px;
+            color: white;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .login-header h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .login-body {
+            padding: 35px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab {
+            cursor: pointer;
+            padding: 12px 25px;
+            font-weight: 600;
+            color: #718096;
+            position: relative;
+            transition: all 0.2s ease;
+            font-size: 15px;
+        }
+
+        .tab.active {
+            color: #2c5282;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #2c5282;
+        }
+
+        .login-form {
+            display: none;
+            flex-direction: column;
+        }
+
+        .login-form.active {
+            display: flex;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .login-modal input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #2d3748;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .login-modal input:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+
+        .login-modal input::placeholder {
+            color: #a0aec0;
+        }
+
+        .login-modal button {
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #2c5282;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .login-modal button:hover {
+            background: #2b6cb0;
+            box-shadow: 0 4px 12px rgba(44, 82, 130, 0.2);
+        }
+
+        .login-modal button:active {
+            transform: translateY(1px);
+        }
+
+        .text-link {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .text-link a {
+            color: #2c5282;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .text-link a:hover {
+            color: #2b6cb0;
+            text-decoration: underline;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .remember-me label {
+            margin: 0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .forgot-password a {
+            color: #2c5282;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider::before {
+            margin-right: 15px;
+        }
+
+        .divider::after {
+            margin-left: 15px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .social-button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            border-radius: 6px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .social-button:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        .social-button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ----- Horse Racing Styles ----- */
+        .race-times {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .race-time {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 45px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .race-time:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar">
+        <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+
+        <div class="nav-links">
+            <a href="#" id="exchange-btn" class="active" onclick="showExchangeSection(); return false;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="20" height="20" style="margin-right: 8px;">
+                Exchange
+            </a>
+            <a href="livecasino.html" id="live-casino-btn">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="20" height="20" style="margin-right: 8px;">
+                Live Casino
+            </a>
+            <a href="#" id="slot-btn" onclick="showSlotSection(); return false;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
+                Slot
+            </a>
+            <a href="#" id="fantasy-games-btn" onclick="showFantasyGamesSection(); return false;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="20" height="20" style="margin-right: 8px;">
+                Fantasy Games
+            </a>
+        </div>
+
+        <div class="right-section">
+            <input type="search" placeholder="Search" class="search-box">
+            <button class="btn login-btn">Login</button>
+            <button class="btn demo-btn">Demo</button>
+        </div>
+    </nav>
+    <div class="notification-bar">
+        <img src="https://cdn-icons-png.flaticon.com/512/3/3745.png" alt="speaker" class="notification-icon">
+        <div class="notification-text">
+            Welcome to new version of TENEXCH, Enjoy more services...
+        </div>
+    </div>
+
+    <!-- ==================== LOGIN MODAL ==================== -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Account Access</h2>
+                <div class="close-btn" onclick="closeModal()">&times;</div>
+            </div>
+
+            <div class="login-body">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('login')">Sign In</div>
+                    <div class="tab" onclick="switchTab('signup')">Create Account</div>
+                </div>
+
+                <form id="login" class="login-form active">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+
+                        <div class="forgot-password">
+                            <a href="#">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <button type="submit">Sign In</button>
+
+                    <div class="divider">or continue with</div>
+
+                    <div class="social-buttons">
+                        <button type="button" class="social-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#4285F4">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.46 8.12h-2.19v1.88h2.19c-.05 2.39-1.95 3.88-4.33 3.88-2.51 0-4.54-2.04-4.54-4.54s2.03-4.54 4.54-4.54c1.17 0 2.27.47 3.13 1.33l1.33-1.33C16.45 5.65 14.97 5 13.13 5 9.48 5 6.5 7.98 6.5 11.63s2.98 6.63 6.63 6.63c3.83 0 6.37-2.69 6.37-6.5 0-.56-.06-1.13-.17-1.67z"/>
+                            </svg>
+                            Google
+                        </button>
+                        <button type="button" class="social-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#1877F2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+                            </svg>
+                            Facebook
+                        </button>
+                    </div>
+
+                    <div class="text-link">
+                        Don't have an account? <a href="#" onclick="switchTab('signup')">Create one</a>
+                    </div>
+                </form>
+
+                <form id="signup" class="login-form">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit">Create Account</button>
+
+                    <div class="divider">or sign up with</div>
+
+                    <div class="social-buttons">
+                        <button type="button" class="social-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#4285F4">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.46 8.12h-2.19v1.88h2.19c-.05 2.39-1.95 3.88-4.33 3.88-2.51 0-4.54-2.04-4.54-4.54s2.03-4.54 4.54-4.54c1.17 0 2.27.47 3.13 1.33l1.33-1.33C16.45 5.65 14.97 5 13.13 5 9.48 5 6.5 7.98 6.5 11.63s2.98 6.63 6.63 6.63c3.83 0 6.37-2.69 6.37-6.5 0-.56-.06-1.13-.17-1.67z"/>
+                            </svg>
+                            Google
+                        </button>
+                        <button type="button" class="social-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#1877F2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+                            </svg>
+                            Facebook
+                        </button>
+                    </div>
+
+                    <div class="text-link">
+                        Already have an account? <a href="#" onclick="switchTab('login')">Sign in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN CONTAINER ==================== -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- ========== LEFT SIDEBAR ========== -->
+            <div class="col-md-2 sidebar">
+                <!-- ----- Racing Sports Dropdown ----- -->
+                <div class="sidebar-dropdown">
+                    <div class="dropdown-header" onclick="toggleDropdown('racing-sports')">
+                        <span>Racing Sports</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <ul class="sports-menu dropdown-content" id="racing-sports-content" style="display: none;">
+                        <li>
+                            Horse Racing
+                        </li>
+                        <li>
+                            Greyhound Racing
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ----- Casino Dropdown ----- -->
+                <div class="sidebar-dropdown">
+                    <div class="dropdown-header" onclick="toggleDropdown('casino')">
+                        <span>Casino</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <ul class="sports-menu dropdown-content" id="casino-content" style="display: none;">
+                        <li onclick="showCasinoContent('teenpatti-poison')">
+                            Teenpatti Poison 20-20
+                        </li>
+                        <li onclick="showCasinoContent('teenpatti-joker-20-20')">
+                            Teenpatti Joker 20-20
+                        </li>
+                        <li onclick="showCasinoContent('unlimited-joker')">
+                            Unlimited Joker Oneday
+                        </li>
+                        <li onclick="showCasinoContent('teenpatti-joker')">
+                            Teenpatti Joker
+                        </li>
+                        <li onclick="showCasinoContent('teenpatti-c')">
+                            20-20 Teenpatti C
+                        </li>
+                        <li onclick="showCasinoContent('bollywood-casino')">
+                            Bollywood Casino 2
+                        </li>
+                        <li onclick="showCasinoContent('unique-roulette')">
+                            Unique Roulette
+                        </li>
+                        <li onclick="showCasinoContent('mini-superover')">
+                            Mini Superover
+                        </li>
+                        <li onclick="showCasinoContent('goal')">
+                            Goal
+                        </li>
+                        <li onclick="showCasinoContent('andar-bahar')">
+                            ANDAR BAHAR 150 cards
+                        </li>
+                        <li onclick="showCasinoContent('lucky-15')">
+                            Lucky 15
+                        </li>
+                        <li onclick="showCasinoContent('super-over2')">
+                            Super Over2
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <!-- ----- Events Dropdown ----- -->
+                <div class="sidebar-dropdown">
+                    <div class="dropdown-header" onclick="toggleDropdown('events')">
+                        <span>Events</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <ul class="sports-menu dropdown-content" id="events-content" style="display: none;">
+                        <li>
+                            <span class="plus-icon">⊕</span> Politics
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Cricket
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Football
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Tennis
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Table Tennis
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Badminton
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Esoccer
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Basketball
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Volleyball
+                        </li>
+                        <li>
+                            <span class="plus-icon">⊕</span> Snooker
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ========== MAIN CONTENT AREA ========== -->
+            <div class="col-md-10 p-4">
+                <!-- ----- Casino Navigation Bar ----- -->
+                <div class="casino-nav-bar" id="casino-nav-bar" style="display: none;">
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('all-casino')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" alt="All Casino">
+                        <span>All Casino</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('roulette')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906188.png" alt="Roulette">
+                        <span>Roulette</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('teenpatti')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906190.png" alt="Teenpatti">
+                        <span>Teenpatti</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('poker')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906187.png" alt="Poker">
+                        <span>Poker</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('baccarat')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906186.png" alt="Baccarat">
+                        <span>Baccarat</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('dragon-tiger')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906189.png" alt="Dragon Tiger">
+                        <span>Dragon Tiger</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('32-cards')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906191.png" alt="32 Cards">
+                        <span>32 Cards</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('andar-bahar')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906185.png" alt="Andar Bahar">
+                        <span>Andar Bahar</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('lucky-7')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906184.png" alt="Lucky 7">
+                        <span>Lucky 7</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('3-card-judgement')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906183.png" alt="3 Card Judgement">
+                        <span>3 Card Judgement</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('casino-war')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906182.png" alt="Casino War">
+                        <span>Casino War</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('worli')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906181.png" alt="Worli">
+                        <span>Worli</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('sports')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906180.png" alt="Sports">
+                        <span>Sports</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('bollywood')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906179.png" alt="Bollywood">
+                        <span>Bollywood</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('lottery')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906178.png" alt="Lottery">
+                        <span>Lottery</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('queen')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906177.png" alt="Queen">
+                        <span>Queen</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('race')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906176.png" alt="Race">
+                        <span>Race</span>
+                    </div>
+                    <div class="casino-nav-item" onclick="showLiveCasinoContent('others')">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906175.png" alt="Others">
+                        <span>Others</span>
+                    </div>
+                </div>
+
+                <!-- ----- Featured Banner Section ----- -->
+                <div class="featured-banner">
+                    <div class="time-badge mb-3">7:30 PM</div>
+                    <h1>INDIAN PREMIER LEAGUE 2025</h1>
+                    <h2 class="mb-4">MA CHIDAMBARAM STADIUM, CHENNAI</h2>
+                    <div class="row align-items-center">
+                        <div class="col team-container">
+                            <img src="https://cdn.freebiesupply.com/logos/large/2x/chennai-super-kings-logo-png-transparent.png" class="team-logo" alt="CSK">
+                            <h3>CHENNAI SUPER KINGS</h3>
+                        </div>
+                        <div class="col text-center">
+                            <div class="vs-badge">VS</div>
+                        </div>
+                        <div class="col team-container">
+                            <img src="https://cdn.freebiesupply.com/logos/large/2x/punjab-kings-logo-png-transparent.png" class="team-logo" alt="PBKS">
+                            <h3>PUNJAB KINGS</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ----- Match Cards Grid Section ----- -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="match-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://www.iplt20.com/assets/images/ipl-logo-new-old.png" class="league-logo" alt="IPL">
+                                    <h5 class="mb-0">Indian Premier League</h5>
+                                </div>
+                                <div class="time-badge">Live</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/chennai-super-kings-logo-png-transparent.png" class="team-logo" alt="CSK">
+                                    <span>vs</span>
+                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/punjab-kings-logo-png-transparent.png" class="team-logo" alt="PBKS">
+                                </div>
+                                <p class="mb-0">MA Chidambaram Stadium</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="match-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://logodownload.org/wp-content/uploads/2017/05/uefa-champions-league-logo-1.png" class="league-logo" alt="UCL">
+                                    <h5 class="mb-0">Champions League</h5>
+                                </div>
+                                <div class="time-badge">9:00 PM</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fc-barcelona-logo-png-transparent.png" class="team-logo" alt="Barcelona">
+                                    <span>vs</span>
+                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/inter-milan-logo-png-transparent.png" class="team-logo" alt="Inter">
+                                </div>
+                                <p class="mb-0">Camp Nou</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="match-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://www.psl-t20.com/assets/images/psl-logo.png" class="league-logo" alt="PSL">
+                                    <h5 class="mb-0">PSL</h5>
+                                </div>
+                                <div class="time-badge">8:00 PM</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <img src="https://www.psl-t20.com/uploads/teams/lahore-qalandars.png" class="team-logo" alt="Lahore">
+                                    <span>vs</span>
+                                    <img src="https://www.psl-t20.com/uploads/teams/islamabad-united.png" class="team-logo" alt="Islamabad">
+                                </div>
+                                <p class="mb-0">Gaddafi Stadium</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== SPORTS NAVIGATION BAR ========== -->
+                <div class="sports-nav-container">
+                    <!-- ----- Navigation Controls ----- -->
+                    <button class="nav-arrow prev" onclick="scrollSports('left')">❮</button>
+                    <div class="sports-nav" id="sportsNav">
+                        <button class="sport-button active">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2150/2150449.png" alt="In Play">
+                            In Play
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/33/33736.png" alt="Cricket">
+                            Cricket
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1165/1165187.png" alt="Football">
+                            Football
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Tennis">
+                            Tennis
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2634/2634052.png" alt="Esoccer">
+                            Esoccer
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2166/2166822.png" alt="Horse Racing">
+                            Horse Racing
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/91/91544.png" alt="Greyhound Racing">
+                            Greyhound Racing
+                        </button>
+                        <button class="sport-button">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2454/2454567.png" alt="Table Tennis">
+                            Table Tennis
+                        </button>
+                    </div>
+                    <button class="nav-arrow next" onclick="scrollSports('right')">❯</button>
+                </div>
+
+                <!-- ========== LIVE BETTING SECTION ========== -->
+                <div class="live-betting-section" id="liveBettingSection">
+                    <!-- ----- Cricket Section ----- -->
+                    <div class="sport-category">
+                        <!-- Cricket Header -->
+                        <div class="sport-header">
+                            <span>Cricket</span>
+                            <div class="market-types">
+                                <span>1</span>
+                                <span>X</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+
+                        <!-- IPL Matches -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>Indian Premier League</span>
+                                <span class="market-indicator">
+                                    <span>F</span>
+                                    <span>BM</span>
+                                </span>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- CSK vs PBKS -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">Indian Premier League</div>
+                                <div class="team-names">Chennai Super Kings v Punjab Kings</div>
+                                <div class="market-indicator">
+                                    <span>F1</span>
+                                    <span>F</span>
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">3.8</div>
+                            <div class="odds-box">3.85</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">1.45</div>
+                            <div class="odds-box">1.36</div>
+                        </div>
+
+                        <!-- Pakistan Super League Header -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>Pakistan Super League</span>
+                                <span class="market-indicator">
+                                    <span>BM</span>
+                                </span>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Lahore vs Islamabad -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">Pakistan Super League</div>
+                                <div class="team-names">Lahore Qalandars v Islamabad United</div>
+                                <div class="market-indicator">
+                                    <span>F1</span>
+                                    <span>F</span>
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.35</div>
+                            <div class="odds-box">1.37</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">3.75</div>
+                            <div class="odds-box">3.8</div>
+                        </div>
+
+                        <!-- Multan vs Karachi -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Pakistan Super League</div>
+                                <div class="team-names">Multan Sultans v Karachi Kings</div>
+                                <div class="market-indicator">
+                                    <span>F1</span>
+                                    <span>F</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">2.18</div>
+                            <div class="odds-box">2.3</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">1.78</div>
+                            <div class="odds-box">1.84</div>
+                        </div>
+
+                        <!-- Adelaide vs Melbourne -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">T10 XI</div>
+                                <div class="team-names">Adelaide Striker XI v Melbourne Stars XI</div>
+                                <div class="market-indicator">
+                                    <span>F</span>
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- South Africa vs West Indies -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">Virtual Cricket League</div>
+                                <div class="team-names">South Africa T10 v West Indies T10</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- New Zealand vs Bangladesh -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">Virtual Cricket League</div>
+                                <div class="team-names">New Zealand T10 v Bangladesh T10</div>
+                                <div class="market-indicator">
+                                    <span>F</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Metro Bank Womens One Day Cup Header -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>Metro Bank Womens One Day Cup</span>
+                                <span class="market-indicator">
+                                    <span>F1</span>
+                                </span>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Somerset W v Essex W -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Metro Bank Womens One Day Cup</div>
+                                <div class="team-names">Somerset W v Essex W</div>
+                                <div class="market-indicator">
+                                    <span>F1</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.64</div>
+                            <div class="odds-box">1.71</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.42</div>
+                            <div class="odds-box">2.58</div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Football Section ----- -->
+                    <div class="sport-category" style="z-index: 1000;">
+                        <div class="sport-header">
+                            <span>Football</span>
+                            <div class="market-types">
+                                <span>1</span>
+                                <span>X</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+
+                        <!-- Brondby v Silkeborg -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">DENMARK LANDSPOKAL CUP - SEMI-FINALS</div>
+                                <div class="team-names">Brondby v Silkeborg</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">36</div>
+                            <div class="odds-box">38</div>
+                            <div class="odds-box">12.5</div>
+                            <div class="odds-box">13.5</div>
+                            <div class="odds-box">1.11</div>
+                            <div class="odds-box">1.12</div>
+                        </div>
+
+                        <!-- FAROE ISLANDS Premier League -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>FAROE ISLANDS Premier League</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Coming Up - Klaksvikar Itrottarfelag v TB Tvoroyri -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">22:00</div>
+                                <div class="league-name">FAROE ISLANDS Premier League</div>
+                                <div class="team-names">Klaksvikar Itrottarfelag v TB Tvoroyri</div>
+                            </div>
+                            <div class="odds-box">1.08</div>
+                            <div class="odds-box">1.1</div>
+                            <div class="odds-box">13</div>
+                            <div class="odds-box">29</div>
+                            <div class="odds-box">80</div>
+                            <div class="odds-box">160</div>
+                        </div>
+
+                        <!-- GERMANY DFB POKAL WOMEN - FINAL -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>GERMANY DFB POKAL WOMEN - FINAL</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Coming Up - Bayern Munich (W) v Werder Bremen (W) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">19:30</div>
+                                <div class="league-name">GERMANY DFB POKAL WOMEN - FINAL</div>
+                                <div class="team-names">Bayern Munich (W) v Werder Bremen (W)</div>
+                            </div>
+                            <div class="odds-box">1.15</div>
+                            <div class="odds-box">1.24</div>
+                            <div class="odds-box">7.8</div>
+                            <div class="odds-box">9</div>
+                            <div class="odds-box">15</div>
+                            <div class="odds-box">24</div>
+                        </div>
+
+                        <!-- BELGIUM Jupiler Pro League -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>BELGIUM Jupiler Pro League</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Coming Up - Antwerp v Anderlecht -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">17:00</div>
+                                <div class="league-name">BELGIUM Jupiler Pro League</div>
+                                <div class="team-names">Antwerp v Anderlecht</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">2.72</div>
+                            <div class="odds-box">2.78</div>
+                            <div class="odds-box">3.7</div>
+                            <div class="odds-box">3.8</div>
+                            <div class="odds-box">2.72</div>
+                            <div class="odds-box">2.74</div>
+                        </div>
+
+                        <!-- Coming Up - Club Brugge v Gent -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">19:30</div>
+                                <div class="league-name">BELGIUM Jupiler Pro League</div>
+                                <div class="team-names">Club Brugge v Gent</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.25</div>
+                            <div class="odds-box">1.27</div>
+                            <div class="odds-box">7.4</div>
+                            <div class="odds-box">7.8</div>
+                            <div class="odds-box">13</div>
+                            <div class="odds-box">14</div>
+                        </div>
+
+                        <!-- USA USL Championship -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>USA USL Championship</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Coming Up - Louisville FC v Lexington SC -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Tomorrow</div>
+                                <div class="team-names">05:30</div>
+                                <div class="league-name">USA USL Championship</div>
+                                <div class="team-names">Louisville FC v Lexington SC</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.41</div>
+                            <div class="odds-box">1.47</div>
+                            <div class="odds-box">5.1</div>
+                            <div class="odds-box">6</div>
+                            <div class="odds-box">7.6</div>
+                            <div class="odds-box">8.4</div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Tennis Section ----- -->
+                    <div class="sport-category" style="z-index: 1000;">
+                        <div class="sport-header">
+                            <span>Tennis</span>
+                            <div class="market-types">
+                                <span>1</span>
+                                <span>X</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+
+                        <!-- WTA MADRID OPEN 2025 -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>WTA MADRID OPEN 2025</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- WTA MADRID OPEN 2025 - WINNER -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="league-name">WTA MADRID OPEN 2025 - WINNER</div>
+                                <div class="team-names">(WTA MADRID OPEN 2025)</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan)</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Vicky Van De Peer - Sofia Martianova -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="team-names">Vicky Van De Peer - Sofia Martianova</div>
+                                <div class="league-name">(ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan))</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Lorena Schadel - Sabrina Olimjonova -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="team-names">Lorena Schadel - Sabrina Olimjonova</div>
+                                <div class="league-name">(ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan))</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Daria Shubina - Ekaterina Maklakova -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Daria Shubina - Ekaterina Maklakova</div>
+                                <div class="league-name">(ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan))</div>
+                            </div>
+                            <div class="odds-box">8.67</div>
+                            <div class="odds-box">13.52</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">1.08</div>
+                            <div class="odds-box">1.13</div>
+                        </div>
+
+                        <!-- Anna Ureke - Beatris Spasova -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Anna Ureke - Beatris Spasova</div>
+                                <div class="league-name">(ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan))</div>
+                            </div>
+                            <div class="odds-box">1.17</div>
+                            <div class="odds-box">1.22</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">5.53</div>
+                            <div class="odds-box">6.9</div>
+                        </div>
+
+                        <!-- Elina Nepliy - Kate Emilia -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Elina Nepliy - Kate Emilia</div>
+                                <div class="league-name">(ITF WOMEN - SINGLES W15 Shymkent (Kazakhstan))</div>
+                            </div>
+                            <div class="odds-box">1.27</div>
+                            <div class="odds-box">1.33</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">4.01</div>
+                            <div class="odds-box">4.72</div>
+                        </div>
+
+                        <!-- CHALLENGER MEN - SINGLES OSTRAVA (CZECH REPUBLIC) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>CHALLENGER MEN - SINGLES OSTRAVA (CZECH REPUBLIC)</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- De Rincon v Gombos -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">14:30</div>
+                                <div class="team-names">De Rincon v Gombos</div>
+                                <div class="league-name">(CHALLENGER MEN - SINGLES OSTRAVA (CZECH REPUBLIC))</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.76</div>
+                            <div class="odds-box">1.77</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.3</div>
+                            <div class="odds-box">2.32</div>
+                        </div>
+
+                        <!-- Evans v Ha Habib -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">14:30</div>
+                                <div class="team-names">Evans v Ha Habib</div>
+                                <div class="league-name">(CHALLENGER MEN - SINGLES OSTRAVA (CZECH REPUBLIC))</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.94</div>
+                            <div class="odds-box">1.95</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.04</div>
+                            <div class="odds-box">2.06</div>
+                        </div>
+
+                        <!-- Kopriva v Janu -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">15:40</div>
+                                <div class="team-names">Kopriva v Janu</div>
+                                <div class="league-name">(CHALLENGER MEN - SINGLES OSTRAVA (CZECH REPUBLIC))</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.29</div>
+                            <div class="odds-box">1.33</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">4</div>
+                            <div class="odds-box">4.5</div>
+                        </div>
+
+                        <!-- J Kumstal v Eiros -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">16:50</div>
+                                <div class="team-names">J Kumstal v Eiros</div>
+                                <div class="league-name">(CHALLENGER MEN - SINGLES OSTRAVA (CZECH REPUBLIC))</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">12</div>
+                            <div class="odds-box">13.5</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">1.08</div>
+                            <div class="odds-box">1.09</div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Esoccer Section ----- -->
+                    <div class="sport-category" style="z-index: 1000;">
+                        <div class="sport-header">
+                            <span>Esoccer</span>
+                            <div class="market-types">
+                                <span>1</span>
+                                <span>X</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+
+                        <!-- E-Soccer Battle - 8 mins play -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>E-Soccer Battle - 8 mins play</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Argentina (senior) - Italy (c1Vllnd) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="team-names">Argentina (senior) - Italy (c1Vllnd)</div>
+                                <div class="league-name">(E-Soccer Battle - 8 mins play)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- France (koftovsky) - Spain (mikkita) (E) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="team-names">France (koftovsky) - Spain (mikkita) (E)</div>
+                                <div class="league-name">(E-Soccer Battle - 8 mins play)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Italy (c1Vllnd) - Germany (uncle) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">10:42</div>
+                                <div class="team-names">Italy (c1Vllnd) - Germany (uncle)</div>
+                                <div class="league-name">(E-Soccer Battle - 8 mins play)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Spain (mikkita) (E) - Argentina (senior) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">10:42</div>
+                                <div class="team-names">Spain (mikkita) (E) - Argentina (senior)</div>
+                                <div class="league-name">(E-Soccer Battle - 8 mins play)</div>
+                            </div>
+                            <div class="odds-box">2.39</div>
+                            <div class="odds-box">2.52</div>
+                            <div class="odds-box">3.98</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.6</div>
+                            <div class="odds-box">2.74</div>
+                        </div>
+
+                        <!-- Esoccer GT Leagues (E) -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>Esoccer GT Leagues (E)</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Real Madrid (romeo) - Bayern Munich (val) esports -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="live-indicator">LIVE</div>
+                                <div class="team-names">Real Madrid (romeo) - Bayern Munich (val) esports</div>
+                                <div class="league-name">(ESoccer GT Leagues (E))</div>
+                            </div>
+                            <div class="odds-box">1.03</div>
+                            <div class="odds-box">1.08</div>
+                            <div class="odds-box">17.17</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">41.4</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Horse Racing Section ----- -->
+                    <div class="sport-category" style="z-index: 1000;">
+                        <div class="sport-header">
+                            <span>Horse Racing</span>
+                            <div class="market-types">
+                                <span>GB</span>
+                                <span>FR</span>
+                                <span>AU</span>
+                                <span>NZ</span>
+                                <span>ZA</span>
+                                <span>IE</span>
+                            </div>
+                        </div>
+
+                        <!-- Redcar -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Redcar</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">18:15</span>
+                                <span class="race-time">18:45</span>
+                                <span class="race-time">19:20</span>
+                                <span class="race-time">19:55</span>
+                                <span class="race-time">20:30</span>
+                                <span class="race-time">21:05</span>
+                                <span class="race-time">21:40</span>
+                            </div>
+                        </div>
+
+                        <!-- Chelmsford City -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Chelmsford City</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">22:15</span>
+                                <span class="race-time">22:45</span>
+                                <span class="race-time">23:15</span>
+                                <span class="race-time">23:45</span>
+                                <span class="race-time">00:15</span>
+                                <span class="race-time">00:45</span>
+                                <span class="race-time">01:15</span>
+                            </div>
+                        </div>
+
+                        <!-- Yarmouth -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Yarmouth</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">18:35</span>
+                                <span class="race-time">19:10</span>
+                                <span class="race-time">19:45</span>
+                                <span class="race-time">20:20</span>
+                                <span class="race-time">20:55</span>
+                                <span class="race-time">21:30</span>
+                                <span class="race-time">22:05</span>
+                            </div>
+                        </div>
+
+                        <!-- Southwell -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Southwell</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">18:55</span>
+                                <span class="race-time">19:30</span>
+                                <span class="race-time">20:05</span>
+                                <span class="race-time">20:40</span>
+                                <span class="race-time">21:15</span>
+                                <span class="race-time">21:50</span>
+                            </div>
+                        </div>
+
+                        <!-- Ayr -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Ayr</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">22:20</span>
+                                <span class="race-time">22:55</span>
+                                <span class="race-time">23:30</span>
+                                <span class="race-time">00:00</span>
+                                <span class="race-time">00:30</span>
+                                <span class="race-time">01:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Greyhound Racing Section ----- -->
+                    <div class="sport-category" style="z-index: 1000;">
+                        <div class="sport-header">
+                            <span>Greyhound Racing</span>
+                            <div class="market-types">
+                                <span>GB</span>
+                                <span>AU</span>
+                            </div>
+                        </div>
+
+                        <!-- Towcester -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Towcester</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">18:27</span>
+                                <span class="race-time">18:46</span>
+                                <span class="race-time">19:03</span>
+                                <span class="race-time">19:22</span>
+                                <span class="race-time">19:41</span>
+                                <span class="race-time">19:59</span>
+                                <span class="race-time">20:19</span>
+                                <span class="race-time">20:37</span>
+                                <span class="race-time">20:56</span>
+                                <span class="race-time">21:14</span>
+                                <span class="race-time">21:33</span>
+                            </div>
+                        </div>
+
+                        <!-- Newcastle -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Newcastle</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">23:07</span>
+                                <span class="race-time">23:23</span>
+                                <span class="race-time">23:41</span>
+                                <span class="race-time">23:57</span>
+                                <span class="race-time">00:14</span>
+                                <span class="race-time">00:31</span>
+                                <span class="race-time">00:49</span>
+                                <span class="race-time">01:06</span>
+                                <span class="race-time">01:24</span>
+                                <span class="race-time">01:41</span>
+                                <span class="race-time">01:58</span>
+                                <span class="race-time">02:16</span>
+                            </div>
+                        </div>
+
+                        <!-- Sheffield -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Sheffield</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">15:31</span>
+                                <span class="race-time">15:48</span>
+                                <span class="race-time">16:04</span>
+                                <span class="race-time">16:22</span>
+                                <span class="race-time">16:39</span>
+                                <span class="race-time">16:56</span>
+                                <span class="race-time">17:12</span>
+                                <span class="race-time">17:29</span>
+                                <span class="race-time">17:47</span>
+                                <span class="race-time">18:03</span>
+                                <span class="race-time">18:21</span>
+                                <span class="race-time">18:37</span>
+                            </div>
+                        </div>
+
+                        <!-- Kinsley -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Kinsley</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">19:06</span>
+                                <span class="race-time">19:24</span>
+                                <span class="race-time">19:43</span>
+                                <span class="race-time">20:02</span>
+                                <span class="race-time">20:21</span>
+                                <span class="race-time">20:39</span>
+                                <span class="race-time">20:58</span>
+                                <span class="race-time">21:17</span>
+                                <span class="race-time">21:36</span>
+                                <span class="race-time">21:54</span>
+                                <span class="race-time">22:13</span>
+                                <span class="race-time">22:32</span>
+                            </div>
+                        </div>
+
+                        <!-- Valley -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Valley</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">22:41</span>
+                                <span class="race-time">22:59</span>
+                                <span class="race-time">23:16</span>
+                                <span class="race-time">23:34</span>
+                                <span class="race-time">23:54</span>
+                                <span class="race-time">00:12</span>
+                                <span class="race-time">00:28</span>
+                                <span class="race-time">00:46</span>
+                                <span class="race-time">01:04</span>
+                                <span class="race-time">01:22</span>
+                            </div>
+                        </div>
+
+                        <!-- Hove -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Hove</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">22:38</span>
+                                <span class="race-time">22:56</span>
+                                <span class="race-time">23:12</span>
+                                <span class="race-time">23:29</span>
+                                <span class="race-time">23:46</span>
+                                <span class="race-time">00:03</span>
+                                <span class="race-time">00:19</span>
+                                <span class="race-time">00:37</span>
+                                <span class="race-time">00:54</span>
+                                <span class="race-time">01:11</span>
+                                <span class="race-time">01:29</span>
+                                <span class="race-time">01:46</span>
+                            </div>
+                        </div>
+
+                        <!-- Perry Barr -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Perry Barr</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">18:59</span>
+                                <span class="race-time">19:18</span>
+                                <span class="race-time">19:37</span>
+                                <span class="race-time">19:56</span>
+                                <span class="race-time">20:14</span>
+                                <span class="race-time">20:33</span>
+                                <span class="race-time">20:52</span>
+                                <span class="race-time">21:11</span>
+                                <span class="race-time">21:29</span>
+                                <span class="race-time">21:48</span>
+                                <span class="race-time">22:07</span>
+                                <span class="race-time">22:26</span>
+                            </div>
+                        </div>
+
+                        <!-- Oxford -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Oxford</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">15:02</span>
+                                <span class="race-time">15:18</span>
+                                <span class="race-time">15:34</span>
+                                <span class="race-time">15:51</span>
+                                <span class="race-time">16:08</span>
+                                <span class="race-time">16:24</span>
+                                <span class="race-time">16:42</span>
+                                <span class="race-time">16:59</span>
+                                <span class="race-time">17:16</span>
+                                <span class="race-time">17:33</span>
+                            </div>
+                        </div>
+
+                        <!-- Central Park -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Central Park</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">18:53</span>
+                                <span class="race-time">19:11</span>
+                                <span class="race-time">19:31</span>
+                                <span class="race-time">19:49</span>
+                                <span class="race-time">20:08</span>
+                                <span class="race-time">20:27</span>
+                                <span class="race-time">20:46</span>
+                                <span class="race-time">21:04</span>
+                                <span class="race-time">21:23</span>
+                                <span class="race-time">21:42</span>
+                                <span class="race-time">22:01</span>
+                                <span class="race-time">22:19</span>
+                            </div>
+                        </div>
+
+                        <!-- Nottingham -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Nottingham</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">15:39</span>
+                                <span class="race-time">15:57</span>
+                                <span class="race-time">16:13</span>
+                                <span class="race-time">16:31</span>
+                                <span class="race-time">16:48</span>
+                                <span class="race-time">17:04</span>
+                                <span class="race-time">17:21</span>
+                                <span class="race-time">17:38</span>
+                                <span class="race-time">17:56</span>
+                                <span class="race-time">18:12</span>
+                                <span class="race-time">18:29</span>
+                                <span class="race-time">18:44</span>
+                            </div>
+                        </div>
+
+                        <!-- Star Pelaw -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Star Pelaw</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">22:34</span>
+                                <span class="race-time">22:51</span>
+                                <span class="race-time">23:09</span>
+                                <span class="race-time">23:26</span>
+                                <span class="race-time">23:44</span>
+                                <span class="race-time">00:01</span>
+                                <span class="race-time">00:21</span>
+                                <span class="race-time">00:39</span>
+                            </div>
+                        </div>
+
+                        <!-- Monmore -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Monmore</div>
+                            </div>
+                            <div class="race-times">
+                                <span class="race-time">22:44</span>
+                                <span class="race-time">23:01</span>
+                                <span class="race-time">23:18</span>
+                                <span class="race-time">23:36</span>
+                                <span class="race-time">23:52</span>
+                                <span class="race-time">00:09</span>
+                                <span class="race-time">00:26</span>
+                                <span class="race-time">00:43</span>
+                                <span class="race-time">01:01</span>
+                                <span class="race-time">01:17</span>
+                                <span class="race-time">01:34</span>
+                                <span class="race-time">01:53</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Table Tennis Section ----- -->
+                    <div class="sport-category" style="z-index: 1000;">
+                        <div class="sport-header">
+                            <span>Table Tennis</span>
+                            <div class="market-types">
+                                <span>1</span>
+                                <span>X</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+
+                        <!-- CZECH Liga Pro -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>CZECH Liga Pro</span>
+                                <div class="market-types">
+                                    <span>1</span>
+                                    <span>X</span>
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Coming Up -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <span>Coming Up</span>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Trojan Frantisek - Miloslav Lubas -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">11:30</div>
+                                <div class="team-names">Trojan Frantisek - Miloslav Lubas</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Vojtech Konvicka - Richard Macura -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">11:30</div>
+                                <div class="team-names">Vojtech Konvicka - Richard Macura</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Michal Syroha - Ludek Madle -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">11:30</div>
+                                <div class="team-names">Michal Syroha - Ludek Madle</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Michal Oburka - Marek Cejka -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">11:30</div>
+                                <div class="team-names">Michal Oburka - Marek Cejka</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Jan Pleskot - Petr Lastuvka -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:00</div>
+                                <div class="team-names">Jan Pleskot - Petr Lastuvka</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Jaroslav Jonas Jr. - Pavel Sirpnar -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:00</div>
+                                <div class="team-names">Jaroslav Jonas Jr. - Pavel Sirpnar</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box">1.86</div>
+                            <div class="odds-box">1.94</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.04</div>
+                            <div class="odds-box">2.18</div>
+                        </div>
+
+                        <!-- Tomas Lysek - Karel Zeman -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:00</div>
+                                <div class="team-names">Tomas Lysek - Karel Zeman</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Jiri Hyrsl - Jiri Srec -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:00</div>
+                                <div class="team-names">Jiri Hyrsl - Jiri Srec</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Ludek Madle - Jaroslav Jonas Jr. -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Ludek Madle - Jaroslav Jonas Jr.</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Miloslav Lubas - Jiri Hyrsl -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Miloslav Lubas - Jiri Hyrsl</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Marek Cejka - Miroslav Nechas -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Marek Cejka - Miroslav Nechas</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Richard Macura - Tomas Lysek -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">12:30</div>
+                                <div class="team-names">Richard Macura - Tomas Lysek</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Karel Zeman - Vojtech Konvicka -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:00</div>
+                                <div class="team-names">Karel Zeman - Vojtech Konvicka</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Vaclav Svoboda - Michal Oburka -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:00</div>
+                                <div class="team-names">Vaclav Svoboda - Michal Oburka</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Petr Lastuvka - Tibor Kolenic -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:00</div>
+                                <div class="team-names">Petr Lastuvka - Tibor Kolenic</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box">2.54</div>
+                            <div class="odds-box">2.77</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">1.57</div>
+                            <div class="odds-box">1.64</div>
+                        </div>
+
+                        <!-- Pavel Sirpnar - Michal Syroha -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:00</div>
+                                <div class="team-names">Pavel Sirpnar - Michal Syroha</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box">1.71</div>
+                            <div class="odds-box">1.78</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.26</div>
+                            <div class="odds-box">2.43</div>
+                        </div>
+
+                        <!-- Tibor Kolenic - Jan Pleskot -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:30</div>
+                                <div class="team-names">Tibor Kolenic - Jan Pleskot</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Michal Syroha - Jaroslav Jonas Jr. -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:30</div>
+                                <div class="team-names">Michal Syroha - Jaroslav Jonas Jr.</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Trojan Frantisek - Jiri Hyrsl -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:30</div>
+                                <div class="team-names">Trojan Frantisek - Jiri Hyrsl</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Vojtech Konvicka - Tomas Lysek -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Today</div>
+                                <div class="team-names">13:30</div>
+                                <div class="team-names">Vojtech Konvicka - Tomas Lysek</div>
+                                <div class="league-name">(CZECH Liga Pro)</div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+                    </div>
+
+                    <!-- ----- Coming Up Section ----- -->
+                    <div class="sport-category">
+                        <div class="sport-header">
+                            <span>Coming Up</span>
+                            <div class="market-types">
+                                <span>1</span>
+                                <span>X</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+
+                        <!-- 11 Apr Matches -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">11 Apr</div>
+                                <div class="team-names">20:30</div>
+                                <div class="league-name">Pakistan Super League</div>
+                                <div class="market-indicator">
+                                    <span>BM</span>
+                                </div>
+                            </div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                        </div>
+
+                        <!-- Tomorrow Matches -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Tomorrow</div>
+                                <div class="team-names">16:00</div>
+                                <div class="league-name">Pakistan Super League</div>
+                                <div class="team-names">Multan Sultans v Karachi Kings</div>
+                                <div class="market-indicator">
+                                    <span>F1</span>
+                                    <span>F</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">2.18</div>
+                            <div class="odds-box">2.3</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">1.78</div>
+                            <div class="odds-box">1.84</div>
+                        </div>
+
+                        <!-- Tomorrow Women's Match -->
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="league-name">Tomorrow</div>
+                                <div class="team-names">15:00</div>
+                                <div class="league-name">Metro Bank Womens One Day Cup</div>
+                                <div class="team-names">Somerset W v Essex W</div>
+                                <div class="market-indicator">
+                                    <span>F1</span>
+                                </div>
+                            </div>
+                            <div class="odds-box">1.64</div>
+                            <div class="odds-box">1.71</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box disabled">-</div>
+                            <div class="odds-box">2.42</div>
+                            <div class="odds-box">2.58</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <!-- ----- Bootstrap Core JS ----- -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ----- Custom Scripts ----- -->
+    <script>
+        // ----- Login Modal Functions -----
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.querySelector('.login-btn');
+
+        // Open modal when login button is clicked
+        loginBtn.addEventListener('click', function() {
+            loginModal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+
+        // Close modal function
+        function closeModal() {
+            loginModal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                closeModal();
+            }
+        });
+
+        // Switch between login and signup tabs
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
+
+            document.querySelector('.tab[onclick="switchTab(\'' + tabName + '\')"]').classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // ----- Sports Navigation Functions -----
+        function scrollSports(direction) {
+            const container = document.getElementById('sportsNav');
+            const scrollAmount = 300; // Adjust scroll amount as needed
+
+            if (direction === 'left') {
+                container.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                container.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ----- Dropdown Toggle Function -----
+        function toggleDropdown(id) {
+            const content = document.getElementById(id + '-content');
+            const arrow = document.querySelector(`[onclick="toggleDropdown('${id}')"] .dropdown-arrow`);
+
+            // Toggle active class for content
+            content.classList.toggle('active');
+
+            // Toggle display style
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+
+            // Toggle arrow direction
+            arrow.classList.toggle('active');
+        }
+
+        // Initialize page when it loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // All dropdowns are closed by default
+            // No automatic opening of casino dropdown
+        });
+
+        // ----- Casino Content Functions -----
+        function showCasinoContent(casinoId) {
+            // Hide all sport categories first
+            const sportCategories = document.querySelectorAll('.sport-category');
+            sportCategories.forEach(category => {
+                category.style.display = 'none';
+            });
+
+            // Hide sports navigation container
+            const sportsNavContainer = document.querySelector('.sports-nav-container');
+            if (sportsNavContainer) {
+                sportsNavContainer.style.display = 'none';
+            }
+
+            // Hide live betting section
+            const liveBettingSection = document.getElementById('liveBettingSection');
+            if (liveBettingSection) {
+                liveBettingSection.style.display = 'none';
+            }
+
+            // Hide live casino content if it exists
+            const liveCasinoDisplayContent = document.getElementById('live-casino-display-content');
+            if (liveCasinoDisplayContent) {
+                liveCasinoDisplayContent.style.display = 'none';
+            }
+
+            // Show casino content based on the casino ID
+            const casinoDisplayContent = document.getElementById('casino-display-content');
+
+            if (!casinoDisplayContent) {
+                // Create casino content container if it doesn't exist
+                const mainContent = document.querySelector('.col-md-10.p-4');
+                const casinoDiv = document.createElement('div');
+                casinoDiv.id = 'casino-display-content';
+                casinoDiv.className = 'casino-content';
+                casinoDiv.style.marginTop = '30px';
+
+                // Add casino content based on the casino ID
+                casinoDiv.innerHTML = `
+                    <div class="sport-category">
+                        <div class="sport-header">
+                            <span>${getCasinoTitle(casinoId)}</span>
+                        </div>
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Welcome to ${getCasinoTitle(casinoId)}</div>
+                                <div class="league-name">Play and win big!</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Insert after the featured banner
+                const featuredBanner = document.querySelector('.featured-banner');
+                featuredBanner.parentNode.insertBefore(casinoDiv, featuredBanner.nextSibling);
+            } else {
+                // Update existing casino content
+                casinoDisplayContent.innerHTML = `
+                    <div class="sport-category">
+                        <div class="sport-header">
+                            <span>${getCasinoTitle(casinoId)}</span>
+                        </div>
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Welcome to ${getCasinoTitle(casinoId)}</div>
+                                <div class="league-name">Play and win big!</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                casinoDisplayContent.style.display = 'block';
+            }
+        }
+
+        // ----- Navigation Functions -----
+        function setActiveNavButton(buttonId) {
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-links a').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Add active class to the clicked button
+            document.getElementById(buttonId).classList.add('active');
+        }
+
+        // ----- Show Exchange Section -----
+        function showExchangeSection() {
+            setActiveNavButton('exchange-btn');
+
+            // Show featured banner
+            const featuredBanner = document.querySelector('.featured-banner');
+            if (featuredBanner) {
+                featuredBanner.style.display = 'block';
+            }
+
+            // Show match cards
+            const matchCardsRow = document.querySelector('.row:not(.casino-nav-bar)');
+            if (matchCardsRow) {
+                matchCardsRow.style.display = 'flex';
+            }
+
+            // Show sports navigation container
+            const sportsNavContainer = document.querySelector('.sports-nav-container');
+            if (sportsNavContainer) {
+                sportsNavContainer.style.display = 'block';
+            }
+
+            // Show live betting section
+            const liveBettingSection = document.getElementById('liveBettingSection');
+            if (liveBettingSection) {
+                liveBettingSection.style.display = 'block';
+            }
+
+            // Show all sport categories
+            const sportCategories = document.querySelectorAll('.sport-category');
+            sportCategories.forEach(category => {
+                category.style.display = 'block';
+            });
+
+            // Set In Play button as active
+            document.querySelectorAll('.sport-button').forEach((button, index) => {
+                if (index === 0) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // Hide casino nav bar
+            const casinoNavBar = document.getElementById('casino-nav-bar');
+            if (casinoNavBar) {
+                casinoNavBar.style.display = 'none';
+            }
+
+            // Hide live casino content if it exists
+            const liveCasinoDisplayContent = document.getElementById('live-casino-display-content');
+            if (liveCasinoDisplayContent) {
+                liveCasinoDisplayContent.style.display = 'none';
+            }
+
+            // Hide casino content if it exists
+            const casinoDisplayContent = document.getElementById('casino-display-content');
+            if (casinoDisplayContent) {
+                casinoDisplayContent.style.display = 'none';
+            }
+        }
+
+        // ----- Show Live Casino Section -----
+        function showLiveCasinoSection() {
+            setActiveNavButton('live-casino-btn');
+
+            // Hide all sport categories first
+            const sportCategories = document.querySelectorAll('.sport-category');
+            sportCategories.forEach(category => {
+                category.style.display = 'none';
+            });
+
+            // Hide live betting section
+            const liveBettingSection = document.getElementById('liveBettingSection');
+            if (liveBettingSection) {
+                liveBettingSection.style.display = 'none';
+            }
+
+            // Hide casino content if it exists
+            const casinoDisplayContent = document.getElementById('casino-display-content');
+            if (casinoDisplayContent) {
+                casinoDisplayContent.style.display = 'none';
+            }
+
+            // Hide featured banner
+            const featuredBanner = document.querySelector('.featured-banner');
+            if (featuredBanner) {
+                featuredBanner.style.display = 'none';
+            }
+
+            // Hide match cards
+            const matchCardsRow = document.querySelector('.row:not(.casino-nav-bar)');
+            if (matchCardsRow) {
+                matchCardsRow.style.display = 'none';
+            }
+
+            // Show casino nav bar
+            const casinoNavBar = document.getElementById('casino-nav-bar');
+            if (casinoNavBar) {
+                casinoNavBar.style.display = 'flex';
+            }
+
+            // Show live casino content
+            const liveCasinoDisplayContent = document.getElementById('live-casino-display-content');
+            if (liveCasinoDisplayContent) {
+                liveCasinoDisplayContent.style.display = 'block';
+            }
+
+            // Set the first casino nav item as active
+            document.querySelectorAll('.casino-nav-item').forEach((item, index) => {
+                if (index === 0) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // ----- Show Slot Section -----
+        function showSlotSection() {
+            setActiveNavButton('slot-btn');
+
+            // Hide all other content
+            showExchangeSection();
+
+            // Show slot content
+            alert("Slot section is under development");
+        }
+
+        // ----- Show Fantasy Games Section -----
+        function showFantasyGamesSection() {
+            setActiveNavButton('fantasy-games-btn');
+
+            // Hide all other content
+            showExchangeSection();
+
+            // Show fantasy games content
+            alert("Fantasy Games section is under development");
+        }
+
+        // ----- Live Casino Content Functions -----
+        function showLiveCasinoContent(casinoId) {
+            // Show casino nav bar
+            const casinoNavBar = document.getElementById('casino-nav-bar');
+            if (casinoNavBar) {
+                casinoNavBar.style.display = 'flex';
+            }
+
+            // Update active casino nav item
+            document.querySelectorAll('.casino-nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('onclick').includes(casinoId)) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Show live casino content based on the casino ID
+            const liveCasinoDisplayContent = document.getElementById('live-casino-display-content');
+
+            if (!liveCasinoDisplayContent) {
+                // Create live casino content container if it doesn't exist
+                const mainContent = document.querySelector('.col-md-10.p-4');
+                const liveCasinoDiv = document.createElement('div');
+                liveCasinoDiv.id = 'live-casino-display-content';
+                liveCasinoDiv.className = 'live-casino-content';
+                liveCasinoDiv.style.marginTop = '30px';
+
+                // Add live casino content based on the casino ID
+                liveCasinoDiv.innerHTML = `
+                    <div class="sport-category">
+                        <div class="sport-header">
+                            <span>${getLiveCasinoTitle(casinoId)}</span>
+                        </div>
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Welcome to ${getLiveCasinoTitle(casinoId)}</div>
+                                <div class="league-name">Play with live dealers!</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Insert after the casino nav bar
+                const casinoNavBar = document.getElementById('casino-nav-bar');
+                casinoNavBar.parentNode.insertBefore(liveCasinoDiv, casinoNavBar.nextSibling);
+            } else {
+                // Update existing live casino content
+                liveCasinoDisplayContent.innerHTML = `
+                    <div class="sport-category">
+                        <div class="sport-header">
+                            <span>${getLiveCasinoTitle(casinoId)}</span>
+                        </div>
+                        <div class="match-row">
+                            <div class="match-info">
+                                <div class="team-names">Welcome to ${getLiveCasinoTitle(casinoId)}</div>
+                                <div class="league-name">Play with live dealers!</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                liveCasinoDisplayContent.style.display = 'block';
+            }
+        }
+
+        function getCasinoTitle(casinoId) {
+            const casinoTitles = {
+                'teenpatti-poison': 'Teenpatti Poison 20-20',
+                'teenpatti-joker-20-20': 'Teenpatti Joker 20-20',
+                'unlimited-joker': 'Unlimited Joker Oneday',
+                'teenpatti-joker': 'Teenpatti Joker',
+                'teenpatti-c': '20-20 Teenpatti C',
+                'bollywood-casino': 'Bollywood Casino 2',
+                'unique-roulette': 'Unique Roulette',
+                'mini-superover': 'Mini Superover',
+                'goal': 'Goal',
+                'andar-bahar': 'ANDAR BAHAR 150 cards',
+                'lucky-15': 'Lucky 15',
+                'super-over2': 'Super Over2'
+            };
+
+            return casinoTitles[casinoId] || 'Casino Game';
+        }
+
+        function getLiveCasinoTitle(casinoId) {
+            const liveCasinoTitles = {
+                'all-casino': 'All Casino Games',
+                'roulette': 'Roulette',
+                'teenpatti': 'Teenpatti',
+                'poker': 'Poker',
+                'baccarat': 'Baccarat',
+                'dragon-tiger': 'Dragon Tiger',
+                '32-cards': '32 Cards',
+                'andar-bahar': 'Andar Bahar',
+                'lucky-7': 'Lucky 7',
+                '3-card-judgement': '3 Card Judgement',
+                'casino-war': 'Casino War',
+                'worli': 'Worli',
+                'sports': 'Sports',
+                'bollywood': 'Bollywood',
+                'lottery': 'Lottery',
+                'queen': 'Queen',
+                'race': 'Race',
+                'others': 'Other Games'
+            };
+
+            return liveCasinoTitles[casinoId] || 'Live Casino Game';
+        }
+
+        // ----- Sports Content Display Functions -----
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all sport buttons
+            const sportButtons = document.querySelectorAll('.sport-button');
+
+            // Get all sport categories
+            const sportCategories = document.querySelectorAll('.sport-category');
+
+            // Add click event to each sport button
+            sportButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    sportButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Get the sport type from the button text
+                    const sportType = this.textContent.trim();
+
+                    // Hide casino content if it exists
+                    const casinoDisplayContent = document.getElementById('casino-display-content');
+                    if (casinoDisplayContent) {
+                        casinoDisplayContent.style.display = 'none';
+                    }
+
+                    // Show sports navigation container
+                    const sportsNavContainer = document.querySelector('.sports-nav-container');
+                    if (sportsNavContainer) {
+                        sportsNavContainer.style.display = 'block';
+                    }
+
+                    // Show live betting section
+                    const liveBettingSection = document.getElementById('liveBettingSection');
+                    if (liveBettingSection) {
+                        liveBettingSection.style.display = 'block';
+                    }
+
+                    // Hide all sport categories first
+                    sportCategories.forEach(category => {
+                        category.style.display = 'none';
+                    });
+
+                    // Show the relevant sport category
+                    if (sportType === 'In Play') {
+                        // Show all categories for In Play
+                        sportCategories.forEach(category => {
+                            category.style.display = 'block';
+                        });
+                    } else {
+                        // Find the category with the matching header text and show it
+                        sportCategories.forEach(category => {
+                            const headerText = category.querySelector('.sport-header span').textContent.trim();
+                            if (headerText === sportType) {
+                                category.style.display = 'block';
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Set the initial active state (In Play shows all)
+            sportCategories.forEach(category => {
+                category.style.display = 'block';
+            });
+        });
+
+        // ----- Document Ready Handler -----
+        document.addEventListener('DOMContentLoaded', function() {
+            const inPlayButton = document.querySelector('.sport-button');
+            const liveBettingSection = document.getElementById('liveBettingSection');
+            const sportCategories = document.querySelectorAll('.sport-category');
+
+            // Show live betting section and all sports by default
+            liveBettingSection.style.display = 'block';
+            sportCategories.forEach(category => {
+                category.style.display = 'block';
+            });
+
+            document.querySelectorAll('.sport-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.sport-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    // Show/hide sections based on button clicked
+                    liveBettingSection.style.display = 'block';
+
+                    const buttonText = button.textContent.trim();
+                    if(buttonText === 'In Play') {
+                        // Show all sport categories for In Play
+                        sportCategories.forEach(category => {
+                            category.style.display = 'block';
+                        });
+                    } else {
+                        // Show only the selected sport category
+                        sportCategories.forEach(category => {
+                            const categoryHeader = category.querySelector('.sport-header span').textContent.trim();
+                            if(categoryHeader === buttonText) {
+                                category.style.display = 'block';
+                            } else {
+                                category.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Add hover effect for odd boxes
+            document.querySelectorAll('.odds-box:not(.disabled)').forEach(box => {
+                box.addEventListener('mouseover', () => {
+                    box.style.transform = 'scale(1.05)';
+                });
+                box.addEventListener('mouseout', () => {
+                    box.style.transform = 'scale(1)';
+                });
+            });
+
+            // Set Exchange as active by default
+            showExchangeSection();
+        });
+    </script>
+</body>
+</html>

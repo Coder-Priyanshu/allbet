@@ -288,20 +288,36 @@
         }
 
         .featured-banner {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1577223625816-7546f13df25d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80');
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://img.jagranjosh.com/images/2023/April/2142023/IPL-2023-stadium-list.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: bannerGlow 3s infinite alternate;
+        }
+
+        @keyframes bannerGlow {
+            0% {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                box-shadow: 0 10px 30px rgba(255, 62, 62, 0.3);
+            }
         }
 
         .time-badge {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, #ff3e3e, #ff7e7e);
             color: white;
-            padding: 5px 15px;
+            padding: 8px 20px;
             border-radius: 20px;
             display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.4);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .team-logo {
@@ -315,13 +331,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-container:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .team-container h3 {
+            margin-top: 15px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .vs-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff3e3e, #ff7e7e);
+            padding: 15px 25px;
             border-radius: 50%;
             margin: 20px 0;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .league-logo {
@@ -854,7 +889,7 @@
                 </form>
 
                 <div class="login-footer">
-                    <p>don't have an account? <a href="#" onclick="switchToSignup()">Create a account</a></p>
+                    <p>don't have an account? <a href="createaccount.html">Create a account</a></p>
                     <p><a href="#" class="forgot-link">Forgot password?</a></p>
                 </div>
             </div>
@@ -1052,19 +1087,22 @@
                 <!-- ----- Featured Banner Section ----- -->
                 <div class="featured-banner">
                     <div class="time-badge mb-3">7:30 PM</div>
-                    <h1>INDIAN PREMIER LEAGUE 2025</h1>
-                    <h2 class="mb-4">MA CHIDAMBARAM STADIUM, CHENNAI</h2>
+                    <h1 style="font-size: 2.5rem; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px;">INDIAN PREMIER LEAGUE 2024</h1>
+                    <h2 class="mb-4" style="color: #ff7e7e; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">WANKHEDE STADIUM, MUMBAI</h2>
+                    <div style="position: absolute; top: 20px; right: 20px;">
+                        <img src="https://www.iplt20.com/assets/images/ipl-logo-new-full.png" alt="IPL" style="width: 120px; height: auto;">
+                    </div>
                     <div class="row align-items-center">
                         <div class="col team-container">
-                            <img src="https://cdn.freebiesupply.com/logos/large/2x/chennai-super-kings-logo-png-transparent.png" class="team-logo" alt="CSK">
-                            <h3>CHENNAI SUPER KINGS</h3>
+                            <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/MI/logos/Roundbig/MIroundbig.png" class="team-logo" alt="MI" style="width: 100px; height: 100px;">
+                            <h3>MUMBAI INDIANS</h3>
                         </div>
                         <div class="col text-center">
                             <div class="vs-badge">VS</div>
                         </div>
                         <div class="col team-container">
-                            <img src="https://cdn.freebiesupply.com/logos/large/2x/punjab-kings-logo-png-transparent.png" class="team-logo" alt="PBKS">
-                            <h3>PUNJAB KINGS</h3>
+                            <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/RCB/logos/Roundbig/RCBroundbig.png" class="team-logo" alt="RCB" style="width: 100px; height: 100px;">
+                            <h3>ROYAL CHALLENGERS BANGALORE</h3>
                         </div>
                     </div>
                 </div>
@@ -1082,11 +1120,11 @@
                             </div>
                             <div class="text-center">
                                 <div class="d-flex justify-content-around align-items-center">
-                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/chennai-super-kings-logo-png-transparent.png" class="team-logo" alt="CSK">
-                                    <span>vs</span>
-                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/punjab-kings-logo-png-transparent.png" class="team-logo" alt="PBKS">
+                                    <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/MI/logos/Roundbig/MIroundbig.png" class="team-logo" alt="MI">
+                                    <span style="font-weight: bold; color: #ff3e3e;">vs</span>
+                                    <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/RCB/logos/Roundbig/RCBroundbig.png" class="team-logo" alt="RCB">
                                 </div>
-                                <p class="mb-0">MA Chidambaram Stadium</p>
+                                <p class="mb-0">Wankhede Stadium, Mumbai</p>
                             </div>
                         </div>
                     </div>
@@ -3235,7 +3273,6 @@
                     }
                 });
             });
-
             // Add hover effect for odd boxes
             document.querySelectorAll('.odds-box:not(.disabled)').forEach(box => {
                 box.addEventListener('mouseover', () => {
@@ -3245,7 +3282,6 @@
                     box.style.transform = 'scale(1)';
                 });
             });
-
             // Set Exchange as active by default
             showExchangeSection();
         });

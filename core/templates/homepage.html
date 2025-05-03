@@ -859,10 +859,12 @@
 <body>
     <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar">
-        <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+        <a href="homepage.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+        </a>
 
         <div class="nav-links">
-            <a href="exchange.html" id="exchange-btn" class="active">
+            <a href="homepage.html" id="exchange-btn" class="active">
                 <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="20" height="20" style="margin-right: 8px;">
                 Exchange
             </a>
@@ -1310,6 +1312,10 @@
                         <button class="sport-button" onclick="activateSportButton(this); setTimeout(function() { window.location.href='slot.html'; }, 300);">
                             <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" alt="Slots">
                             Slots
+                        </button>
+                        <button class="sport-button" onclick="activateSportButton(this); setTimeout(function() { window.location.href='fantasy.html'; }, 300);">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" alt="Fantasy">
+                            Fantasy
                         </button>
                     </div>
                     <button class="nav-arrow next" onclick="scrollSports('right')">❯</button>

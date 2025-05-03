@@ -25,17 +25,19 @@
 
         /* ----- Navbar Styles ----- */
         .navbar {
-            background-color: var(--secondary-color);
-            padding: 15px 20px;
+            background-color: #1a1a1a;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            color: white;
         }
 
         .logo {
-            height: 40px;
+            height: 45px;
             width: auto;
+            object-fit: contain;
+            margin-right: 10px;
         }
 
         .nav-links {
@@ -44,19 +46,23 @@
         }
 
         .nav-links a {
+            color: white;
             text-decoration: none;
-            color: #ddd;
-            padding: 8px 15px;
+            font-weight: 600;
+            background-color: #2d3446;
+            padding: 10px 20px;
             border-radius: 5px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .nav-links a:hover {
             background-color: #3a4257;
-            color: white;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .nav-links a.active {
@@ -70,87 +76,86 @@
         .right-section {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
-        
-        .search-container {
-            position: relative;
-            margin-right: 10px;
-        }
-        
+
         .search-box {
-            background-color: #2d3446;
-            border: 1px solid #3a4257;
-            color: white;
-            padding: 8px 15px;
-            padding-right: 35px;
-            border-radius: 5px;
-            outline: none;
-            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
-        
-        .search-box:focus {
-            border-color: #4a5267;
-            box-shadow: 0 0 0 2px rgba(74, 82, 103, 0.3);
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            opacity: 0.7;
-        }
-        
-        .login-btn, .demo-btn {
-            background-color: #2d3446;
-            color: white;
-            border: none;
-            padding: 8px 15px;
+
+        .btn {
+            padding: 10px 22px;
             border-radius: 5px;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        
-        .login-btn {
-            background-color: var(--accent-color);
-            box-shadow: 0 4px 10px rgba(255, 62, 62, 0.3);
-        }
-        
-        .login-btn:hover {
-            background-color: #ff5252;
+
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(255, 62, 62, 0.4);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
-        
+
+        .login-btn {
+            background-color: #ff3e3e;
+            border: none;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #e63636;
+        }
+
+        .demo-btn {
+            background-color: #2d3446;
+            border: none;
+            color: white;
+        }
+
         .demo-btn:hover {
             background-color: #3a4257;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* ----- Notification Bar Styles ----- */
         .notification-bar {
-            background-color: #2d3446;
-            padding: 10px 20px;
+            background-color: #2d2d2d;
+            color: white;
+            padding: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 60px;
         }
 
         .notification-icon {
-            width: 20px;
-            height: 20px;
-            filter: brightness(0.8);
+            height: 30px;
+            width: 30px;
+            margin-right: 15px;
+            margin-left: 10px;
+            z-index: 2;
         }
 
         .notification-text {
-            color: #ddd;
-            font-size: 14px;
+            display: inline-block;
+            animation: scrollText 20s linear infinite;
+            padding-left: 100%;
+            white-space: nowrap;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* ----- Fantasy Games Content Styles ----- */
@@ -207,21 +212,21 @@
             margin-top: 40px;
             border-top: 1px solid #3a4257;
         }
-        
+
         .quick-nav h5 {
             color: white;
             margin-bottom: 20px;
             font-weight: 600;
             text-align: center;
         }
-        
+
         .nav-buttons {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
         }
-        
+
         .nav-button {
             display: flex;
             flex-direction: column;
@@ -235,27 +240,27 @@
             width: 120px;
             text-align: center;
         }
-        
+
         .nav-button img {
             margin-bottom: 10px;
             transition: transform 0.3s ease;
         }
-        
+
         .nav-button span {
             font-size: 14px;
             font-weight: 500;
         }
-        
+
         .nav-button:hover {
             background-color: #3a4257;
             transform: translateY(-5px);
             color: white;
         }
-        
+
         .nav-button:hover img {
             transform: scale(1.1);
         }
-        
+
         .nav-button.active {
             background-color: var(--accent-color);
             color: white;
@@ -267,10 +272,12 @@
 <body>
     <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar">
-        <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+        <a href="homepage.html">
+            <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
+        </a>
 
         <div class="nav-links">
-            <a href="exchange.html" id="exchange-btn">
+            <a href="homepage.html" id="exchange-btn">
                 <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="20" height="20" style="margin-right: 8px;">
                 Exchange
             </a>
@@ -278,7 +285,7 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="20" height="20" style="margin-right: 8px;">
                 Live Casino
             </a>
-            <a href="slot.html" id="slot-btn">
+            <a href="slot.html" id="slot-btn" onclick="setActiveNavButton('slot-btn'); window.location.href='slot.html'; return false;">
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
                 Slot
             </a>
@@ -289,18 +296,9 @@
         </div>
 
         <div class="right-section">
-            <div class="search-container">
-                <input type="search" placeholder="Search" class="search-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" alt="Search" class="search-icon">
-            </div>
-            <button class="btn login-btn">
-                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Login" width="16" height="16" style="margin-right: 5px;">
-                Login
-            </button>
-            <button class="btn demo-btn">
-                <img src="https://cdn-icons-png.flaticon.com/512/1251/1251840.png" alt="Demo" width="16" height="16" style="margin-right: 5px;">
-                Demo
-            </button>
+            <input type="search" placeholder="Search" class="search-box">
+            <button class="btn login-btn">Login</button>
+            <button class="btn demo-btn">Demo</button>
         </div>
     </nav>
 
@@ -313,76 +311,449 @@
     </div>
 
     <!-- ==================== FANTASY GAMES CONTENT ==================== -->
-    <div class="container">
-        <div class="fantasy-content">
-            <div class="fantasy-header">
-                <h1>Fantasy Games</h1>
-                <p>Create your dream team and compete for big prizes</p>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="fantasy-card">
-                        <img src="https://www.slotstemple.com/wp-content/uploads/2021/02/Cricket-Fantasy-League.png" alt="Cricket Fantasy League">
-                        <h3>Cricket Fantasy League</h3>
-                        <p>Build your dream cricket team with players from around the world and compete for massive prizes.</p>
-                        <button class="btn login-btn w-100 mt-3">Play Now</button>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="fantasy-card">
-                        <img src="https://www.slotstemple.com/wp-content/uploads/2021/02/Football-Fantasy-League.png" alt="Football Fantasy League">
-                        <h3>Football Fantasy League</h3>
-                        <p>Create your ultimate football squad and earn points based on your players' real-life performances.</p>
-                        <button class="btn login-btn w-100 mt-3">Play Now</button>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="fantasy-card">
-                        <img src="https://www.slotstemple.com/wp-content/uploads/2021/02/Basketball-Fantasy-League.png" alt="Basketball Fantasy League">
-                        <h3>Basketball Fantasy League</h3>
-                        <p>Draft your perfect basketball team and compete against friends in daily and weekly contests.</p>
-                        <button class="btn login-btn w-100 mt-3">Play Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==================== FOOTER NAVIGATION ==================== -->
-    <div class="footer-navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="quick-nav">
-                        <h5>Quick Navigation</h5>
-                        <div class="nav-buttons">
-                            <a href="exchange.html" class="nav-button">
-                                <img src="https://cdn-icons-png.flaticon.com/512/1067/1067357.png" width="24" height="24">
-                                <span>Exchange</span>
-                            </a>
-                            <a href="livecasino.html" class="nav-button">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="24" height="24">
-                                <span>Live Casino</span>
-                            </a>
-                            <a href="slot.html" class="nav-button">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="24" height="24">
-                                <span>Slot</span>
-                            </a>
-                            <a href="fantasy.html" class="nav-button active">
-                                <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="24" height="24">
-                                <span>Fantasy Games</span>
-                            </a>
-                            <a href="index.html" class="nav-button">
-                                <img src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png" width="24" height="24">
-                                <span>Home</span>
-                            </a>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- ========== SIDEBAR ========== -->
+            <div class="col-md-2 p-0">
+                <div class="fantasy-sidebar">
+                    <div class="provider-list">
+                        <div class="provider-item">
+                            <div class="logo-template smart-logo">
+                                <span>🔶</span>
+                            </div>
+                            <span>SMART</span>
+                        </div>
+                        <div class="provider-item">
+                            <div class="logo-template our-logo">
+                                <span>🔸</span>
+                            </div>
+                            <span>OUR</span>
+                        </div>
+                        <div class="provider-item">
+                            <div class="logo-template aviator-logo">
+                                <span>✈️</span>
+                            </div>
+                            <span>AVIATOR</span>
+                        </div>
+                        <div class="provider-item">
+                            <div class="logo-template pascal-logo">
+                                <span>⭐</span>
+                            </div>
+                            <span>PASCAL</span>
+                        </div>
+                        <div class="provider-item">
+                            <div class="logo-template scratch-logo">
+                                <span>🎮</span>
+                            </div>
+                            <span>SCRATCH</span>
+                        </div>
+                        <div class="provider-item">
+                            <div class="logo-template darwin-logo">
+                                <span>⚡</span>
+                            </div>
+                            <span>DARWIN</span>
+                        </div>
+                        <div class="provider-item">
+                            <div class="logo-template gemini-logo">
+                                <span>♊</span>
+                            </div>
+                            <span>GEMINI</span>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- ========== MAIN CONTENT AREA ========== -->
+            <div class="col-md-10">
+                <div class="fantasy-content">
+                    <div class="fantasy-header">
+                        <h1>Fantasy Games</h1>
+                        <p>Experience the thrill of our exclusive fantasy games collection</p>
+                    </div>
+
+                    <div class="fantasy-games-grid">
+                <!-- Row 1 -->
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/jetx/jetx_thumb.webp" alt="JetX">
+                    <div class="game-overlay">
+                        <h3>JetX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/cricket-x/cricket-x_thumb.webp" alt="CricketX">
+                    <div class="game-overlay">
+                        <h3>CricketX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/balloon/balloon_thumb.webp" alt="Balloon">
+                    <div class="game-overlay">
+                        <h3>Balloon</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/plinko-x/plinko-x_thumb.webp" alt="PlinkoX">
+                    <div class="game-overlay">
+                        <h3>PlinkoX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/football-x/football-x_thumb.webp" alt="FootballX">
+                    <div class="game-overlay">
+                        <h3>FootballX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/mines/mines_thumb.webp" alt="Mines">
+                    <div class="game-overlay">
+                        <h3>Mines</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/tower-x/tower-x_thumb.webp" alt="TowerX">
+                    <div class="game-overlay">
+                        <h3>TowerX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/helicopter/helicopter_thumb.webp" alt="HelicopterX">
+                    <div class="game-overlay">
+                        <h3>HelicopterX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/crash/crash_thumb.webp" alt="Crash Smash">
+                    <div class="game-overlay">
+                        <h3>Crash Smash</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/roll-x/roll-x_thumb.webp" alt="RollX">
+                    <div class="game-overlay">
+                        <h3>RollX</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/foxy/foxy_thumb.webp" alt="Foxy">
+                    <div class="game-overlay">
+                        <h3>Foxy</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/hunter/hunter_thumb.webp" alt="Hunter">
+                    <div class="game-overlay">
+                        <h3>Hunter</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/bonuses-bonanza/bonuses-bonanza_thumb.webp" alt="Bonuses Bonanza">
+                    <div class="game-overlay">
+                        <h3>Bonuses Bonanza</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/wheel-of-fortune/wheel-of-fortune_thumb.webp" alt="Wheel of Fortune">
+                    <div class="game-overlay">
+                        <h3>Wheel of Fortune</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/russian-keno/russian-keno_thumb.webp" alt="Russian Keno">
+                    <div class="game-overlay">
+                        <h3>Russian Keno</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/french-keno/french-keno_thumb.webp" alt="French Keno">
+                    <div class="game-overlay">
+                        <h3>French Keno</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/cappadocia/cappadocia_thumb.webp" alt="Cappadocia">
+                    <div class="game-overlay">
+                        <h3>Cappadocia</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/aviastar/aviastar_thumb.webp" alt="AviaStar">
+                    <div class="game-overlay">
+                        <h3>AviaStar</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+
+                <!-- Row 4 (Additional 3 cards) -->
+                <div class="fantasy-game-card">
+                    <img src="https://pragmaticplay.com/wp-content/uploads/2022/10/Book-of-Fallen-1.jpg" alt="Book of Futuria">
+                    <div class="game-overlay">
+                        <h3>Book of Futuria</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://pragmaticplay.com/wp-content/uploads/2022/10/Gates-of-Olympus-1.jpg" alt="Wilds & Gods">
+                    <div class="game-overlay">
+                        <h3>Wilds & Gods</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                <div class="fantasy-game-card">
+                    <img src="https://spribe.co/files/assets/images/games/crash-duel/crash-duel_thumb.webp" alt="Crash Duel">
+                    <div class="game-overlay">
+                        <h3>Crash Duel</h3>
+                        <button class="play-btn">PLAY NOW</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <style>
+        /* Fantasy Sidebar Styles */
+        .fantasy-sidebar {
+            background-color: var(--secondary-color);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .provider-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background-color: #e0e0e0;
+            padding: 2px;
+        }
+
+        .provider-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 15px 10px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .provider-item:hover {
+            background-color: #e9e9e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-template {
+            width: 50px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            font-size: 24px;
+            border: 2px solid #000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .smart-logo {
+            background: linear-gradient(135deg, #FFA500, #FF8C00);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .our-logo {
+            background: linear-gradient(135deg, #FF6B00, #FF4500);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .aviator-logo {
+            background: linear-gradient(135deg, #FF3E6C, #FF1493);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .pascal-logo {
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #000;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .scratch-logo {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .darwin-logo {
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .gemini-logo {
+            background: linear-gradient(135deg, #2196F3, #03A9F4);
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .provider-item span {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        /* Fantasy Games Grid Styles */
+        .fantasy-games-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .fantasy-game-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            aspect-ratio: 4/3;
+        }
+
+        .fantasy-game-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .fantasy-game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .fantasy-game-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .fantasy-game-card:hover .game-overlay {
+            transform: translateY(0);
+        }
+
+        .game-overlay h3 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .play-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1400px) {
+            .fantasy-games-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .fantasy-games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .fantasy-games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fantasy-games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .col-md-2 {
+                width: 100%;
+            }
+            .col-md-10 {
+                width: 100%;
+            }
+            .fantasy-sidebar {
+                min-height: auto;
+            }
+            .provider-list {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .fantasy-games-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .provider-list {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

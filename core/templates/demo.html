@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Account - AllBet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1f2c;
+            --secondary-color: #242a38;
+            --accent-color: #ff3e3e;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .demo-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            color: #ddd;
+            font-size: 16px;
+        }
+
+        .demo-info {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .demo-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #ffc107;
+        }
+
+        .demo-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .demo-info li {
+            color: #ddd;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .demo-info li:before {
+            content: "•";
+            color: #ffc107;
+            position: absolute;
+            left: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #2a2a2a;
+            color: white;
+        }
+
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+
+        .demo-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .demo-btn:hover {
+            background-color: #ff5252;
+        }
+
+        .demo-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .demo-footer p {
+            margin: 5px 0;
+        }
+
+        .demo-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .demo-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <div class="demo-container">
+            <div class="demo-header">
+                <h1>Demo Account</h1>
+                <p>Try our platform with a demo account</p>
+            </div>
+
+            <div class="demo-info">
+                <h3>Demo Account Features:</h3>
+                <ul>
+                    <li>Access to all games and features</li>
+                    <li>Virtual currency for testing</li>
+                    <li>No real money involved</li>
+                    <li>Perfect for learning the platform</li>
+                </ul>
+            </div>
+
+            <form method="post" action="{% url 'demo' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="demo-btn">Start Demo</button>
+            </form>
+
+            <div class="demo-footer">
+                <p>Want to play with real money? <a href="{% url 'createaccount' %}">Create an account</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

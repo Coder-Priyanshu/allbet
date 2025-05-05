@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .error {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Registration</h1>
+    
+    <div id="message" class="message" style="display: none;"></div>
+    
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" required>
+        </div>
+        
+        <button type="submit">Register</button>
+    </form>
+    
+    <div>
+        <h2>Registered Users</h2>
+        <pre id="userList"></pre>
+    </div>
+    
+    <script>
+        // Simple storage for users
+        let users = JSON.parse(localStorage.getItem('simple_users') || '[]');
+        
+        // Display users
+        function displayUsers() {
+            const userList = document.getElementById('userList');
+            userList.textContent = JSON.stringify(users, null, 2);
+        }
+        
+        // Show message
+        function showMessage(text, isError = false) {
+            const message = document.getElementById('message');
+            message.textContent = text;
+            message.className = isError ? 'message error' : 'message success';
+            message.style.display = 'block';
+            
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Handle form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                phone: document.getElementById('phone').value,
+                id: Date.now().toString(),
+                createdAt: new Date().toISOString()
+            };
+            
+            // Check if email already exists
+            const existingUser = users.find(user => user.email === userData.email);
+            if (existingUser) {
+                showMessage('Email already registered', true);
+                return;
+            }
+            
+            // Add user
+            users.push(userData);
+            
+            // Save to localStorage
+            localStorage.setItem('simple_users', JSON.stringify(users));
+            
+            // Show success message
+            showMessage('Registration successful!');
+            
+            // Reset form
+            document.getElementById('registerForm').reset();
+            
+            // Update display
+            displayUsers();
+        });
+        
+        // Initial display
+        displayUsers();
+    </script>
+</body>
+</html>

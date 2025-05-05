@@ -9,6 +9,53 @@
     <!-- ==================== CSS IMPORTS ==================== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- ==================== JS IMPORTS ==================== -->
+    <script src="../static/js/server-simulation.js"></script>
+    <script src="../static/js/auth.js"></script>
+
+    <!-- Test script to verify authentication is working -->
+    <script>
+        // This will run after the page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Wait for everything else to initialize
+            setTimeout(async function() {
+                console.log("Running authentication test");
+
+                // Create a test user if none exists
+                const testUser = {
+                    firstName: "Test",
+                    lastName: "User",
+                    email: "test@example.com",
+                    password: "password123",
+                    phone: "1234567890"
+                };
+
+                try {
+                    // Check if test user already exists
+                    const existingUser = await ServerSimulation.findUserByEmail(testUser.email);
+
+                    if (!existingUser) {
+                        console.log("Creating test user");
+                        await ServerSimulation.registerUser(testUser);
+                        console.log("Test user created");
+                    } else {
+                        console.log("Test user already exists");
+                    }
+
+                    // Verify we can find the user
+                    const foundUser = await ServerSimulation.findUserByEmail(testUser.email);
+                    console.log("Found test user:", foundUser);
+
+                    // Test authentication
+                    const authResult = await ServerSimulation.verifyCredentials(testUser.email, testUser.password);
+                    console.log("Authentication test result:", authResult);
+                } catch (error) {
+                    console.error("Authentication test failed:", error);
+                }
+            }, 2000);
+        });
+    </script>
+
     <!-- ==================== CUSTOM STYLES ==================== -->
     <style>
         /* ----- Base Variables ----- */
@@ -331,15 +378,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 15px;
             transition: transform 0.3s ease;
+            border: 2px solid #d5a845;
         }
 
         .team-container:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(180, 0, 0, 0.7);
         }
 
         .team-container h3 {
@@ -813,7 +861,7 @@
     <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar">
         <a href="homepage.html">
-            <img src="https://img.freepik.com/premium-vector/sports-betting-logo-template-with-modern-design_23-2149972384.jpg" alt="Sports Betting" class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Sports Betting" class="logo">
         </a>
 
         <div class="nav-links">
@@ -825,19 +873,19 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906192.png" width="20" height="20" style="margin-right: 8px;">
                 Live Casino
             </a>
-            <a href="slot.html" id="slot-btn">
+            <a href="slot.html" id="slot-btn" onclick="setActiveNavButton('slot-btn'); window.location.href='slot.html'; return false;">
                 <img src="https://cdn-icons-png.flaticon.com/512/2906/2906112.png" width="20" height="20" style="margin-right: 8px;">
                 Slot
             </a>
-            <a href="fantasy.html" id="fantasy-games-btn">
-                <img src="https://cdn-icons-png.flaticon.com/512/4727/4727496.png" width="20" height="20" style="margin-right: 8px;">
+            <a href="fantasy.html" id="fantasy-games-btn" onclick="setActiveNavButton('fantasy-games-btn'); window.location.href='fantasy.html'; return false;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" width="20" height="20" style="margin-right: 8px;">
                 Fantasy Games
             </a>
         </div>
 
         <div class="right-section">
             <input type="search" placeholder="Search" class="search-box">
-            <button class="btn login-btn" onclick="openLoginModal()">Login</button>
+            <button class="btn login-btn">Login</button>
             <button class="btn demo-btn">Demo</button>
         </div>
     </nav>
@@ -854,17 +902,17 @@
             <div class="login-content">
                 <div class="login-header">
                     <h2>Sign In.</h2>
-                    <div class="close-btn" onclick="closeModal()">&times;</div>
+                    <div class="close-btn" id="closeLoginBtn">&times;</div>
                 </div>
 
                 <div class="social-buttons">
-                    <button type="button" class="social-button google-btn">
+                    <button type="button" class="social-button google-btn" id="googleLoginBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.46 8.12h-2.19v1.88h2.19c-.05 2.39-1.95 3.88-4.33 3.88-2.51 0-4.54-2.04-4.54-4.54s2.03-4.54 4.54-4.54c1.17 0 2.27.47 3.13 1.33l1.33-1.33C16.45 5.65 14.97 5 13.13 5 9.48 5 6.5 7.98 6.5 11.63s2.98 6.63 6.63 6.63c3.83 0 6.37-2.69 6.37-6.5 0-.56-.06-1.13-.17-1.67z"/>
                         </svg>
                         Continue with Google
                     </button>
-                    <button type="button" class="social-button facebook-btn">
+                    <button type="button" class="social-button facebook-btn" id="facebookLoginBtn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                             <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
                         </svg>
@@ -884,6 +932,8 @@
                     <div class="form-group">
                         <input type="password" id="password" placeholder="Password" required>
                     </div>
+
+                    <div id="loginMessage" class="alert" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 5px; color: white; font-size: 14px;"></div>
 
                     <button type="submit" class="signin-btn">Sign in.</button>
                 </form>
@@ -1085,24 +1135,24 @@
                 </div>
 
                 <!-- ----- Featured Banner Section ----- -->
-                <div class="featured-banner">
+                <div class="featured-banner" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://www.mumbaiindians.com/static-assets/waf-images/e7/e1/dd/16-9/1200-675/Uy0Iy9Iy9F.jpg'); background-size: cover; background-position: center;">
                     <div class="time-badge mb-3">7:30 PM</div>
-                    <h1 style="font-size: 2.5rem; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px;">INDIAN PREMIER LEAGUE 2024</h1>
+                    <h1 style="font-size: 2.5rem; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px;">INDIAN PREMIER LEAGUE 2025</h1>
                     <h2 class="mb-4" style="color: #ff7e7e; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">WANKHEDE STADIUM, MUMBAI</h2>
                     <div style="position: absolute; top: 20px; right: 20px;">
-                        <img src="https://www.iplt20.com/assets/images/ipl-logo-new-full.png" alt="IPL" style="width: 120px; height: auto;">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png" alt="IPL" style="width: 120px; height: auto;">
                     </div>
                     <div class="row align-items-center">
                         <div class="col team-container">
-                            <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/MI/logos/Roundbig/MIroundbig.png" class="team-logo" alt="MI" style="width: 100px; height: 100px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Mumbai_Indians_Logo.svg/1200px-Mumbai_Indians_Logo.svg.png" class="team-logo" alt="MI" style="width: 100px; height: 100px;">
                             <h3>MUMBAI INDIANS</h3>
                         </div>
                         <div class="col text-center">
                             <div class="vs-badge">VS</div>
                         </div>
-                        <div class="col team-container">
-                            <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/RCB/logos/Roundbig/RCBroundbig.png" class="team-logo" alt="RCB" style="width: 100px; height: 100px;">
-                            <h3>ROYAL CHALLENGERS BANGALORE</h3>
+                        <div class="col team-container" style="background: rgba(180, 0, 0, 0.8); border: 2px solid #d5a845;">
+                            <img src="https://icon2.cleanpng.com/lnd/20250108/pp/316a58e68e3b0f0004dc9c2b8f64f5.webp" class="team-logo" alt="RCB" style="width: 100px; height: 100px;">
+                            <h3 style="color: #d5a845;">ROYAL CHALLENGERS BANGALORE</h3>
                         </div>
                     </div>
                 </div>
@@ -1110,21 +1160,21 @@
                 <!-- ----- Match Cards Grid Section ----- -->
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="match-card">
+                        <div class="match-card" style="background: linear-gradient(to right, #0f2b5b, #1a1f2c, #b30000); border: 1px solid #d5a845;">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="https://www.iplt20.com/assets/images/ipl-logo-new-old.png" class="league-logo" alt="IPL">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/84/Indian_Premier_League_Official_Logo.svg/1200px-Indian_Premier_League_Official_Logo.svg.png" class="league-logo" alt="IPL">
                                     <h5 class="mb-0">Indian Premier League</h5>
                                 </div>
                                 <div class="time-badge">Live</div>
                             </div>
                             <div class="text-center">
                                 <div class="d-flex justify-content-around align-items-center">
-                                    <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/MI/logos/Roundbig/MIroundbig.png" class="team-logo" alt="MI">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Mumbai_Indians_Logo.svg/1200px-Mumbai_Indians_Logo.svg.png" class="team-logo" alt="MI">
                                     <span style="font-weight: bold; color: #ff3e3e;">vs</span>
-                                    <img src="https://bcciplayerimages.s3.ap-south-1.amazonaws.com/ipl/RCB/logos/Roundbig/RCBroundbig.png" class="team-logo" alt="RCB">
+                                    <img src="https://icon2.cleanpng.com/lnd/20250108/pp/316a58e68e3b0f0004dc9c2b8f64f5.webp" class="team-logo" alt="RCB" style="background: rgba(180, 0, 0, 0.3); border-radius: 50%; padding: 5px; border: 1px solid #d5a845;">
                                 </div>
-                                <p class="mb-0">Wankhede Stadium, Mumbai</p>
+                                <p class="mb-0" style="color: #d5a845; font-weight: bold;">Wankhede Stadium, Mumbai</p>
                             </div>
                         </div>
                     </div>
@@ -1132,16 +1182,16 @@
                         <div class="match-card">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="https://logodownload.org/wp-content/uploads/2017/05/uefa-champions-league-logo-1.png" class="league-logo" alt="UCL">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/UEFA_Champions_League_logo.svg/1200px-UEFA_Champions_League_logo.svg.png" class="league-logo" alt="UCL">
                                     <h5 class="mb-0">Champions League</h5>
                                 </div>
                                 <div class="time-badge">9:00 PM</div>
                             </div>
                             <div class="text-center">
                                 <div class="d-flex justify-content-around align-items-center">
-                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fc-barcelona-logo-png-transparent.png" class="team-logo" alt="Barcelona">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png" class="team-logo" alt="Barcelona">
                                     <span>vs</span>
-                                    <img src="https://cdn.freebiesupply.com/logos/large/2x/inter-milan-logo-png-transparent.png" class="team-logo" alt="Inter">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/1200px-FC_Internazionale_Milano_2021.svg.png" class="team-logo" alt="Inter">
                                 </div>
                                 <p class="mb-0">Camp Nou</p>
                             </div>
@@ -1151,16 +1201,16 @@
                         <div class="match-card">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="https://www.psl-t20.com/assets/images/psl-logo.png" class="league-logo" alt="PSL">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/dc/Pakistan_Super_League_logo.svg/1200px-Pakistan_Super_League_logo.svg.png" class="league-logo" alt="PSL">
                                     <h5 class="mb-0">PSL</h5>
                                 </div>
                                 <div class="time-badge">8:00 PM</div>
                             </div>
                             <div class="text-center">
                                 <div class="d-flex justify-content-around align-items-center">
-                                    <img src="https://www.psl-t20.com/uploads/teams/lahore-qalandars.png" class="team-logo" alt="Lahore">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Lahore_Qalandars.png/250px-Lahore_Qalandars.png" class="team-logo" alt="Lahore">
                                     <span>vs</span>
-                                    <img src="https://www.psl-t20.com/uploads/teams/islamabad-united.png" class="team-logo" alt="Islamabad">
+                                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Islamabad_United.png/250px-Islamabad_United.png" class="team-logo" alt="Islamabad">
                                 </div>
                                 <p class="mb-0">Gaddafi Stadium</p>
                             </div>
@@ -1174,35 +1224,35 @@
                     <button class="nav-arrow prev" onclick="scrollSports('left')">❮</button>
                     <div class="sports-nav" id="sportsNav">
                         <button class="sport-button active">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2150/2150449.png" alt="In Play">
+                            <img src="https://cdn-icons-png.flaticon.com/512/9358/9358150.png" alt="In Play">
                             In Play
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/33/33736.png" alt="Cricket">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1099/1099680.png" alt="Cricket">
                             Cricket
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1165/1165187.png" alt="Football">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3231/3231063.png" alt="Football">
                             Football
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2158/2158416.png" alt="Tennis">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2151/2151193.png" alt="Tennis">
                             Tennis
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2634/2634052.png" alt="Esoccer">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2121/2121546.png" alt="Esoccer">
                             Esoccer
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2166/2166822.png" alt="Horse Racing">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2152/2152413.png" alt="Horse Racing">
                             Horse Racing
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/91/91544.png" alt="Greyhound Racing">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2171/2171990.png" alt="Greyhound Racing">
                             Greyhound Racing
                         </button>
                         <button class="sport-button">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2454/2454567.png" alt="Table Tennis">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2076/2076623.png" alt="Table Tennis">
                             Table Tennis
                         </button>
                         <button class="sport-button" onclick="activateSportButton(this); setTimeout(function() { window.location.href='slot.html'; }, 300);">
@@ -1210,7 +1260,7 @@
                             Slots
                         </button>
                         <button class="sport-button" onclick="activateSportButton(this); setTimeout(function() { window.location.href='fantasy.html'; }, 300);">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1068/1068778.png" alt="Fantasy">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4727/4727496.png" alt="Fantasy">
                             Fantasy
                         </button>
                     </div>
@@ -3230,8 +3280,139 @@
             button.classList.add('active');
         }
 
+        // ----- Login Modal Functions -----
+        function openLoginModal() {
+            const loginModal = document.getElementById('loginModal');
+            loginModal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeModal() {
+            console.log("Closing modal");
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            }
+        }
+
+        function showLoginMessage(message, isError = false) {
+            const messageElement = document.getElementById('loginMessage');
+            messageElement.textContent = message;
+            messageElement.style.backgroundColor = isError ? '#f44336' : '#4CAF50';
+            messageElement.style.display = 'block';
+
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 3000);
+        }
+
         // ----- Document Ready Handler -----
         document.addEventListener('DOMContentLoaded', function() {
+            // Login Modal Setup
+            const loginBtn = document.querySelector('.login-btn');
+            const loginModal = document.getElementById('loginModal');
+
+            // Set up login button click event
+            loginBtn.addEventListener('click', function() {
+                // If user is logged in, this will be handled by Auth.checkAuthState()
+                // Otherwise, open the login modal
+                if (!Auth.isLoggedIn()) {
+                    openLoginModal();
+                }
+            });
+
+            // Close modal when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === loginModal) {
+                    closeModal();
+                }
+            });
+
+            // Close modal when clicking the close button
+            const closeBtn = document.getElementById('closeLoginBtn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+
+            // Handle login form submission
+            const loginForm = document.getElementById('login');
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Show loading state
+                const signinBtn = document.querySelector('.signin-btn');
+                const originalText = signinBtn.textContent;
+                signinBtn.textContent = 'Signing in...';
+                signinBtn.disabled = true;
+
+                try {
+                    console.log("Attempting login with:", email, password);
+
+                    // First, check if the user exists directly with ServerSimulation
+                    const user = await ServerSimulation.findUserByEmail(email);
+                    console.log("User lookup result:", user);
+
+                    if (!user) {
+                        // User doesn't exist
+                        signinBtn.textContent = originalText;
+                        signinBtn.disabled = false;
+                        showLoginMessage('Account not found. Redirecting to create account page...', true);
+                        setTimeout(function() {
+                            window.location.href = 'createaccount.html';
+                        }, 2000);
+                        return;
+                    }
+
+                    // User exists, verify password
+                    const authResult = await ServerSimulation.verifyCredentials(email, password);
+                    console.log("Authentication result:", authResult);
+
+                    // Reset button
+                    signinBtn.textContent = originalText;
+                    signinBtn.disabled = false;
+
+                    if (authResult.success) {
+                        // Login successful
+                        showLoginMessage('Login successful!');
+
+                        // Set user as logged in
+                        localStorage.setItem('currentUser', JSON.stringify(authResult.user));
+                        localStorage.setItem('isLoggedIn', 'true');
+
+                        // Close modal immediately
+                        closeModal();
+
+                        // Force reload the page after a short delay
+                        setTimeout(function() {
+                            console.log("Reloading page after successful login");
+                            window.location.href = window.location.href.split('#')[0]; // Remove any hash
+                        }, 500);
+                    } else {
+                        // Login failed (wrong password)
+                        showLoginMessage(authResult.message || 'Invalid password. Please try again.', true);
+                    }
+                } catch (error) {
+                    console.error("Login error:", error);
+                    signinBtn.textContent = originalText;
+                    signinBtn.disabled = false;
+                    showLoginMessage('An error occurred during login. Please try again.', true);
+                }
+            });
+
+            // Handle social login buttons
+            document.getElementById('googleLoginBtn').addEventListener('click', function() {
+                showLoginMessage('Google login is not implemented in this demo', true);
+            });
+
+            document.getElementById('facebookLoginBtn').addEventListener('click', function() {
+                showLoginMessage('Facebook login is not implemented in this demo', true);
+            });
+
             const inPlayButton = document.querySelector('.sport-button');
             const liveBettingSection = document.getElementById('liveBettingSection');
             const sportCategories = document.querySelectorAll('.sport-category');
@@ -3286,5 +3467,102 @@
             showExchangeSection();
         });
     </script>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer style="background-color: #2d3446; padding: 30px 0; margin-top: 50px; border-top: 1px solid #3a4257;">
+        <div class="container-fluid px-4">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <h5 style="color: #fff; font-weight: 700; margin-bottom: 20px;">ABOUT US</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">About AllBet</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Responsible Gaming</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Terms & Conditions</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 style="color: #fff; font-weight: 700; margin-bottom: 20px;">SPORTS</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Cricket</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Football</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Tennis</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Basketball</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 style="color: #fff; font-weight: 700; margin-bottom: 20px;">CASINO</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Live Casino</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Slots</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Table Games</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: #aaa; text-decoration: none; transition: color 0.3s;">Fantasy Games</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 style="color: #fff; font-weight: 700; margin-bottom: 20px;">CONTACT US</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px; color: #aaa;"><i class="fas fa-envelope" style="margin-right: 10px; color: #ff3e3e;"></i> support@allbet.com</li>
+                        <li style="margin-bottom: 10px; color: #aaa;"><i class="fas fa-phone" style="margin-right: 10px; color: #ff3e3e;"></i> 24/7 Support</li>
+                        <li style="margin-bottom: 10px; color: #aaa;"><i class="fas fa-headset" style="margin-right: 10px; color: #ff3e3e;"></i> Live Chat</li>
+                    </ul>
+                    <div style="margin-top: 20px;">
+                        <h6 style="color: #fff; font-weight: 600; margin-bottom: 15px;">FOLLOW US</h6>
+                        <div style="display: flex; gap: 15px;">
+                            <a href="#" style="color: #fff; background-color: #1877F2; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" style="color: #fff; background-color: #1DA1F2; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" style="color: #fff; background-color: #E4405F; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" style="color: #fff; background-color: #FF0000; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border-color: #3a4257; margin: 20px 0;">
+
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div style="display: flex; align-items: center;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2150/2150463.png" alt="Secure" style="height: 40px; margin-right: 15px;">
+                        <div>
+                            <h6 style="color: #fff; margin-bottom: 5px; font-weight: 600;">SECURE & PROTECTED</h6>
+                            <p style="color: #aaa; margin-bottom: 0; font-size: 12px;">SSL Encrypted | Licensed & Regulated</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+                        <div style="background-color: #ff3e3e; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">18+</div>
+                        <img src="https://www.begambleaware.org/sites/default/files/2021-03/GambleAware_logo.png" alt="BeGambleAware" style="height: 25px;">
+                        <img src="https://www.gamstop.co.uk/assets/images/logo.svg" alt="GAMSTOP" style="height: 25px; background-color: black; padding: 3px 5px; border-radius: 3px;">
+                        <img src="https://www.gamblingcommission.gov.uk/images/logos/gc-logo.svg" alt="Gambling Commission" style="height: 25px; background-color: white; padding: 3px; border-radius: 3px;">
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <p style="color: #aaa; margin-bottom: 0; font-size: 12px;">© Copyright 2025 AllBet. All Rights Reserved.</p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p style="color: #777; font-size: 12px; margin-bottom: 0;">
+                        AllBet is committed to responsible gaming. Please gamble responsibly and only bet what you can afford.
+                        For gambling addiction help and support, please contact <a href="#" style="color: #ff3e3e; text-decoration: none;">www.gamcare.org.uk</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
